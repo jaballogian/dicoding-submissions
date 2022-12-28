@@ -32,6 +32,12 @@ class App extends Component {
           noteList={this.state.noteList.filter(item => !item.archived)}
           title='Active Notes'
         />
+
+        {/* ARCHIVED NOTES */}
+        <NoteList 
+          noteList={this.state.noteList.filter(item => item.archived)}
+          title='Archived Notes'
+        />
       </Stack>
     )
   }
