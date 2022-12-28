@@ -1,6 +1,7 @@
 import { Component } from 'react'
 
 // COMPONENTS
+import CreateNoteItem from 'components/CreateNoteItem'
 import NoteList from 'components/NoteList'
 
 // MUIS
@@ -21,23 +22,27 @@ class App extends Component {
   render() {
     return (
       <Stack 
-        direction='row'
         minHeight='100vh'
         sx={(theme) => ({
           backgroundColor: theme.palette.background.default,
         })}
       >
-        {/* ACTIVE NOTES */}
-        <NoteList 
-          noteList={this.state.noteList.filter(item => !item.archived)}
-          title='Active Notes'
-        />
+        {/* CREATE A NOTE ITEM */}
+        <CreateNoteItem/>
 
-        {/* ARCHIVED NOTES */}
-        <NoteList 
-          noteList={this.state.noteList.filter(item => item.archived)}
-          title='Archived Notes'
-        />
+        <Stack direction='row'>
+          {/* ACTIVE NOTES */}
+          <NoteList 
+            noteList={this.state.noteList.filter(item => !item.archived)}
+            title='Active Notes'
+          />
+
+          {/* ARCHIVED NOTES */}
+          <NoteList 
+            noteList={this.state.noteList.filter(item => item.archived)}
+            title='Archived Notes'
+          />
+        </Stack>
       </Stack>
     )
   }
