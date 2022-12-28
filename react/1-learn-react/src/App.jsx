@@ -20,9 +20,18 @@ class App extends Component {
 
   render() {
     return (
-      <Stack direction='row'>
+      <Stack 
+        direction='row'
+        minHeight='100vh'
+        sx={(theme) => ({
+          backgroundColor: theme.palette.background.default,
+        })}
+      >
         {/* ACTIVE NOTES */}
-        <NoteList/>
+        <NoteList 
+          noteList={this.state.noteList.filter(item => !item.archived)}
+          title='Active Notes'
+        />
       </Stack>
     )
   }
