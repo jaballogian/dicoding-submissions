@@ -4,8 +4,10 @@ import ReactDOM from 'react-dom/client'
 // COMPONENTS
 import App from './App'
 
+// CONSTANTS
+import customTheme from 'constants/theme'
+
 // MUIS
-import { createTheme } from '@mui/material'
 import { 
   StyledEngineProvider, 
   ThemeProvider, 
@@ -13,12 +15,6 @@ import {
 
 // STYLES
 import './index.css'
-
-const customTheme = createTheme({
-  typography: {
-    fontFamily: [ 'Montserrat', 'sans-serif' ].join(','),
-  },
-})
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
