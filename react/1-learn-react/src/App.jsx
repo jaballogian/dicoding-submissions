@@ -17,24 +17,32 @@ class App extends Component {
 
     this.state = {
       noteList: getInitialData(),
+      filteredNoteList: getInitialData(),
     }
 
     this.onAddNewNoteHandler = this.onAddNewNoteHandler.bind(this)
     this.onDeleteNoteHandler = this.onDeleteNoteHandler.bind(this)
+    this.onSearchChangeHandler = this.onSearchChangeHandler.bind(this)
   }
 
   onAddNewNoteHandler ({ title, body }) {
     this.setState((prevState) => {
+      const newNoteItem = {
+        id: +new Date(),
+        title,
+        body,
+        archived: false,
+        createdAt: new Date(),
+      }
+
       return {
         noteList: [
           ...prevState.noteList,
-          {
-            id: +new Date(),
-            title,
-            body,
-            archived: false,
-            createdAt: new Date(),
-          },
+          newNoteItem,
+        ],
+        filteredNoteList: [
+          ...prevState.filteredNoteList,
+          newNoteItem,
         ],
       }
     })
@@ -42,8 +50,21 @@ class App extends Component {
 
   onDeleteNoteHandler (id) {
     this.setState((prevState) => {
+      const newNoteList = prevState.noteList.filter(item => item.id !== id)
+
       return {
-        noteList: prevState.noteList.filter(item => item.id !== id),
+        ...prevState,
+        noteList: newNoteList,
+        filteredNoteList: newNoteList,
+      }
+    })
+  }
+
+  onSearchChangeHandler (search) {
+    this.setState((prevState) => {
+      return {
+        ...prevState,
+        filteredNoteList: prevState.noteList.filter(item => item.title.toLowerCase().includes(search.toLowerCase())),
       }
     })
   }
@@ -57,7 +78,7 @@ class App extends Component {
         })}
       >
         {/* HEADER */}
-        <Header/>
+        <Header onSearchChange={this.onSearchChangeHandler}/>
         
         {/* CREATE A NOTE ITEM */}
         <CreateNoteItem onSubmitButtonClick={this.onAddNewNoteHandler}/>
@@ -65,14 +86,14 @@ class App extends Component {
         <Stack direction='row'>
           {/* ACTIVE NOTES */}
           <NoteList 
-            noteList={this.state.noteList.filter(item => !item.archived)}
+            noteList={this.state.filteredNoteList.filter(item => !item.archived)}
             title='Active Notes'
             onDeleteButtonClick={this.onDeleteNoteHandler}
           />
 
           {/* ARCHIVED NOTES */}
           <NoteList 
-            noteList={this.state.noteList.filter(item => item.archived)}
+            noteList={this.state.filteredNoteList.filter(item => item.archived)}
             title='Archived Notes'
           />
         </Stack>
