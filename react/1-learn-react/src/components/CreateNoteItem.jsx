@@ -11,22 +11,34 @@ import Typography from '@mui/material/Typography'
 class CreateNoteItem extends Component {
   constructor(props) {
     super(props)
- 
+
     this.state = {
       title: '',
       body: '',
+      isTitleLimitReached: false,
     }
 
     this.onFormChangeHandler = this.onFormChangeHandler.bind(this)
   }
 
   onFormChangeHandler (event) {
-    this.setState(() => {
-      return {
-        ...this.state,
-        [event.target.name]: event.target.value,
-      }
-    })
+    if (event.target.name === 'title' && event.target.value.length > 50) {
+      this.setState(() => {
+        return {
+          ...this.state,
+          isTitleLimitReached: true,
+        }
+      })
+    }
+    else {
+      this.setState(() => {
+        return {
+          ...this.state,
+          isTitleLimitReached: false,
+          [event.target.name]: event.target.value,
+        }
+      })
+    }
   }
 
   render() {
@@ -56,7 +68,7 @@ class CreateNoteItem extends Component {
           textAlign='right'
           width='100%'
         >
-          Title remaining characters: 0
+          Title remaining characters: {50 - this.state.title.length}
         </Typography>
 
         {/* TITLE INPUT */}
