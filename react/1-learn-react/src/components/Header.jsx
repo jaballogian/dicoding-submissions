@@ -13,6 +13,26 @@ import { alpha } from '@mui/material/styles'
 import IconSearch from '@mui/icons-material/Search'
 
 class Header extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      search: '',
+    }
+
+    this.onSearchChangeHandler = this.onSearchChangeHandler.bind(this)
+  }
+
+  onSearchChangeHandler (event) {
+    this.setState(() => {
+      return {
+        search: event.target.value,
+      }
+    })
+
+    this.props.onSearchChange(event.target.value)
+  }
+
   render () {
     return (
       <AppBar position='static'>
@@ -49,6 +69,8 @@ class Header extends Component {
                 },
                 backgroundColor: alpha(theme.palette.common.white, 0.16),
               })}
+              value={this.state.search}
+              onChange={this.onSearchChangeHandler}
             />
           </FormControl>
         </Toolbar>
