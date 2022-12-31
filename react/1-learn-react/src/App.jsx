@@ -17,6 +17,25 @@ class App extends Component {
     this.state = {
       noteList: getInitialData(),
     }
+
+    this.onAddNewNoteHandler = this.onAddNewNoteHandler.bind(this)
+  }
+
+  onAddNewNoteHandler ({ title, body }) {
+    this.setState((prevState) => {
+      return {
+        noteList: [
+          ...prevState.noteList,
+          {
+            id: +new Date(),
+            title,
+            body,
+            archived: false,
+            createdAt: new Date(),
+          },
+        ],
+      }
+    })
   }
 
   render() {
@@ -28,7 +47,7 @@ class App extends Component {
         })}
       >
         {/* CREATE A NOTE ITEM */}
-        <CreateNoteItem/>
+        <CreateNoteItem onSubmitButtonClick={this.onAddNewNoteHandler}/>
 
         <Stack direction='row'>
           {/* ACTIVE NOTES */}
