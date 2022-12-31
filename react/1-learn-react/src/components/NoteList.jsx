@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography'
 
 const NoteList = (props) => {
   const { 
-    noteList, title, 
+    noteList, type, 
     onDeleteButtonClick,
     onArchiveButtonClick,
   } = props
@@ -26,8 +26,9 @@ const NoteList = (props) => {
         fontWeight={600}
         color='text.primary'
         textAlign='center'
+        textTransform='capitalize'
       >
-        {title}
+        {type} Notes
       </Typography>
 
       {/* NOTE LIST */}
@@ -49,6 +50,7 @@ const NoteList = (props) => {
               <NoteItem
                 key={item.id}
                 {...item}
+                type={type}
                 onDeleteButtonClick={onDeleteButtonClick}
                 onArchiveButtonClick={onArchiveButtonClick}
               />

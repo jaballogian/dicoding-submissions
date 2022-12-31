@@ -12,7 +12,7 @@ import { showFormattedDate } from 'utilities/data'
 
 const NoteItem = (props) => {
   const { 
-    id, title, createdAt, body, 
+    id, title, createdAt, body, type,
     onDeleteButtonClick, 
     onArchiveButtonClick,
   } = props
@@ -72,7 +72,7 @@ const NoteItem = (props) => {
             fullWidth
             onClick={() => onArchiveButtonClick(id)}
           >
-            Archive
+            {type === 'active' ? 'Archive' : 'Restore'}
           </Button>
         </CardActions>
       </Card>

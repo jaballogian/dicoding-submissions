@@ -105,7 +105,7 @@ class App extends Component {
           {/* ACTIVE NOTES */}
           <NoteList 
             noteList={this.state.filteredNoteList.filter(item => !item.archived)}
-            title='Active Notes'
+            type='active'
             onDeleteButtonClick={this.onDeleteNoteHandler}
             onArchiveButtonClick={this.onArchiveNoteHandler}
           />
@@ -113,7 +113,9 @@ class App extends Component {
           {/* ARCHIVED NOTES */}
           <NoteList 
             noteList={this.state.filteredNoteList.filter(item => item.archived)}
-            title='Archived Notes'
+            type='archived'
+            onDeleteButtonClick={this.onDeleteNoteHandler}
+            onArchiveButtonClick={this.onArchiveNoteHandler}
           />
         </Stack>
       </Stack>
