@@ -11,7 +11,7 @@ const NoteList = (props) => {
 
   return (
     <Stack 
-      flex='1'
+      flex={1}
       padding={40}
       spacing={40}
     >

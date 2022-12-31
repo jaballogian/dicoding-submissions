@@ -26,6 +26,15 @@ const NoteItem = (props) => {
         <CardHeader
           title={title}
           subheader={showFormattedDate(createdAt)}
+          titleTypographyProps={{
+            noWrap: true,
+          }}
+          sx={{
+            '& .MuiCardHeader-content': {
+              flex: '1 1 auto',
+              width: '100%',
+            },
+          }}
         />
 
         {/* CONTENT */}
@@ -33,7 +42,8 @@ const NoteItem = (props) => {
           <Typography
             variant='subtitle1'
             textAlign='justify'
-            flex='1'
+            flex={1}
+            sx={{ wordWrap: 'break-word' }}
           >
             {body}
           </Typography>
