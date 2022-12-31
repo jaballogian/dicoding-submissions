@@ -9,17 +9,20 @@ import OutlinedInput from '@mui/material/OutlinedInput'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 
+const initialState = {
+  title: '',
+  body: '',
+  isTitleLimitReached: false,
+}
+
 class CreateNoteItem extends Component {
   constructor(props) {
     super(props)
 
-    this.state = {
-      title: '',
-      body: '',
-      isTitleLimitReached: false,
-    }
+    this.state = initialState
 
     this.onFormChangeHandler = this.onFormChangeHandler.bind(this)
+    this.onSubmitEventHandler = this.onSubmitEventHandler.bind(this)
   }
 
   onFormChangeHandler (event) {
@@ -42,6 +45,15 @@ class CreateNoteItem extends Component {
     }
   }
 
+  onSubmitEventHandler (event) {
+    event.preventDefault()
+    
+    const { isTitleLimitReached, ...noteItemData } = this.state
+    this.props.onSubmitButtonClick({ ...noteItemData })
+
+    this.setState(initialState)
+  }
+
   render() {
     return (
       <Stack 
@@ -52,6 +64,7 @@ class CreateNoteItem extends Component {
         maxWidth={600}
         margin='0px auto'
         component='form'
+        onSubmit={this.onSubmitEventHandler}
       >
         {/* TITLE TEXT */}
         <Typography
@@ -116,6 +129,7 @@ class CreateNoteItem extends Component {
         <Button
           variant='contained'
           fullWidth
+          type='submit'
         >
           Add the Note
         </Button>
