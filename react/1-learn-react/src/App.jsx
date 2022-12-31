@@ -19,6 +19,7 @@ class App extends Component {
     }
 
     this.onAddNewNoteHandler = this.onAddNewNoteHandler.bind(this)
+    this.onDeleteNoteHandler = this.onDeleteNoteHandler.bind(this)
   }
 
   onAddNewNoteHandler ({ title, body }) {
@@ -34,6 +35,14 @@ class App extends Component {
             createdAt: new Date(),
           },
         ],
+      }
+    })
+  }
+
+  onDeleteNoteHandler (id) {
+    this.setState((prevState) => {
+      return {
+        noteList: prevState.noteList.filter(item => item.id !== id),
       }
     })
   }
@@ -54,6 +63,7 @@ class App extends Component {
           <NoteList 
             noteList={this.state.noteList.filter(item => !item.archived)}
             title='Active Notes'
+            onDeleteButtonClick={this.onDeleteNoteHandler}
           />
 
           {/* ARCHIVED NOTES */}

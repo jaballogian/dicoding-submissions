@@ -7,7 +7,10 @@ import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 
 const NoteList = (props) => {
-  const { noteList, title } = props
+  const { 
+    noteList, title, 
+    onDeleteButtonClick,
+  } = props
 
   return (
     <Stack 
@@ -36,6 +39,7 @@ const NoteList = (props) => {
             <NoteItem
               key={item.id}
               {...item}
+              onDeleteButtonClick={onDeleteButtonClick}
             />
           ))}
         </Grid>

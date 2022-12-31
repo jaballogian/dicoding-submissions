@@ -11,7 +11,10 @@ import Typography from '@mui/material/Typography'
 import { showFormattedDate } from 'utilities/data'
 
 const NoteItem = (props) => {
-  const { title, createdAt, body } = props
+  const { 
+    id, title, createdAt, body, 
+    onDeleteButtonClick, 
+  } = props
 
   return (
     <Grid
@@ -56,6 +59,7 @@ const NoteItem = (props) => {
             color='error'
             variant='contained'
             fullWidth
+            onClick={() => onDeleteButtonClick(id)}
           >
             Delete
           </Button>
