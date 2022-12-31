@@ -24,17 +24,17 @@ class CreateNoteItem extends Component {
 
   onFormChangeHandler (event) {
     if (event.target.name === 'title' && event.target.value.length > 50) {
-      this.setState(() => {
+      this.setState((prevState) => {
         return {
-          ...this.state,
+          ...prevState,
           isTitleLimitReached: true,
         }
       })
     }
     else {
-      this.setState(() => {
+      this.setState((prevState) => {
         return {
-          ...this.state,
+          ...prevState,
           isTitleLimitReached: false,
           [event.target.name]: event.target.value,
         }
@@ -51,6 +51,7 @@ class CreateNoteItem extends Component {
         width='100%'
         maxWidth={600}
         margin='0px auto'
+        component='form'
       >
         {/* TITLE TEXT */}
         <Typography
@@ -82,6 +83,7 @@ class CreateNoteItem extends Component {
           </InputLabel>
 
           <OutlinedInput 
+            autoFocus
             label='Note title'
             name='title'
             value={this.state.title}
