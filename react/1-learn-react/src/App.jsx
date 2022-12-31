@@ -2,6 +2,7 @@ import { Component } from 'react'
 
 // COMPONENTS
 import CreateNoteItem from 'components/CreateNoteItem'
+import Header from 'components/Header'
 import NoteList from 'components/NoteList'
 
 // MUIS
@@ -55,6 +56,9 @@ class App extends Component {
           backgroundColor: theme.palette.background.default,
         })}
       >
+        {/* HEADER */}
+        <Header/>
+        
         {/* CREATE A NOTE ITEM */}
         <CreateNoteItem onSubmitButtonClick={this.onAddNewNoteHandler}/>
 
