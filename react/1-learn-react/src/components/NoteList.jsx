@@ -10,6 +10,7 @@ const NoteList = (props) => {
   const { 
     noteList, title, 
     onDeleteButtonClick,
+    onArchiveButtonClick,
   } = props
 
   return (
@@ -49,6 +50,7 @@ const NoteList = (props) => {
                 key={item.id}
                 {...item}
                 onDeleteButtonClick={onDeleteButtonClick}
+                onArchiveButtonClick={onArchiveButtonClick}
               />
             ))}
           </Grid>

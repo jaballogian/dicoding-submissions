@@ -23,6 +23,7 @@ class App extends Component {
 
     this.onAddNewNoteHandler = this.onAddNewNoteHandler.bind(this)
     this.onDeleteNoteHandler = this.onDeleteNoteHandler.bind(this)
+    this.onArchiveNoteHandler = this.onArchiveNoteHandler.bind(this)
     this.onSearchChangeHandler = this.onSearchChangeHandler.bind(this)
   }
 
@@ -50,6 +51,23 @@ class App extends Component {
   onDeleteNoteHandler (id) {
     this.setState((prevState) => {
       const newNoteList = prevState.noteList.filter(item => item.id !== id)
+
+      return {
+        ...prevState,
+        noteList: newNoteList,
+        filteredNoteList: newNoteList.filter(item => item.title.toLowerCase().includes(this.state.search.toLowerCase())),
+      }
+    })
+  }
+
+  onArchiveNoteHandler (id) {
+    this.setState((prevState) => {
+      const newNoteList = prevState.noteList.map(item => {
+        return {
+          ...item,
+          archived: item.id === id ? !item.archived : item.archived,
+        }
+      })
 
       return {
         ...prevState,
@@ -89,6 +107,7 @@ class App extends Component {
             noteList={this.state.filteredNoteList.filter(item => !item.archived)}
             title='Active Notes'
             onDeleteButtonClick={this.onDeleteNoteHandler}
+            onArchiveButtonClick={this.onArchiveNoteHandler}
           />
 
           {/* ARCHIVED NOTES */}

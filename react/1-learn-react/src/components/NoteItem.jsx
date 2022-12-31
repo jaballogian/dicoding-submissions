@@ -14,6 +14,7 @@ const NoteItem = (props) => {
   const { 
     id, title, createdAt, body, 
     onDeleteButtonClick, 
+    onArchiveButtonClick,
   } = props
 
   return (
@@ -69,6 +70,7 @@ const NoteItem = (props) => {
             color='primary'
             variant='contained'
             fullWidth
+            onClick={() => onArchiveButtonClick(id)}
           >
             Archive
           </Button>
