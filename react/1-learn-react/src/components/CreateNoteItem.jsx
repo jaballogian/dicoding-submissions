@@ -3,6 +3,7 @@ import { Component } from 'react'
 // MUIS
 import Button from '@mui/material/Button'
 import FormControl from '@mui/material/FormControl'
+import FormHelperText from '@mui/material/FormHelperText'
 import InputLabel from '@mui/material/InputLabel'
 import OutlinedInput from '@mui/material/OutlinedInput'
 import Stack from '@mui/material/Stack'
@@ -72,7 +73,10 @@ class CreateNoteItem extends Component {
         </Typography>
 
         {/* TITLE INPUT */}
-        <FormControl fullWidth>
+        <FormControl 
+          fullWidth
+          error={this.state.isTitleLimitReached}
+        >
           <InputLabel>
             Note title
           </InputLabel>
@@ -83,6 +87,11 @@ class CreateNoteItem extends Component {
             value={this.state.title}
             onChange={this.onFormChangeHandler}
           />
+
+          {this.state.isTitleLimitReached &&
+          <FormHelperText error>
+            The maximum characters (50) is reached
+          </FormHelperText>}
         </FormControl>
 
         {/* BODY INPUT */}
