@@ -4,7 +4,7 @@ import { alpha } from '@mui/material/styles'
 
 const white = '#FFFFFF'
 
-const customTheme = createTheme({
+let customTheme = createTheme({
   palette: {
     divider: alpha(white, 0.12),
     background: {
@@ -19,6 +19,20 @@ const customTheme = createTheme({
   spacing: 1,
   typography: {
     fontFamily: [ 'Montserrat', 'sans-serif' ].join(','),
+  },
+})
+
+customTheme = createTheme(customTheme, {
+  components: {
+    MuiOutlinedInput: {
+      defaultProps: {
+        sx: {
+          '& fieldset': {
+            border: `2px solid ${customTheme.palette.divider}`,
+          },
+        },
+      },
+    },
   },
 })
 
