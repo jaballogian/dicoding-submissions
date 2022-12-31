@@ -30,20 +30,30 @@ const NoteList = (props) => {
       </Typography>
 
       {/* NOTE LIST */}
-      <Stack>
-        <Grid
-          container
-          spacing={24}
+      {noteList.length === 0 ? (
+        <Typography
+          variant='subtitle1'
+          color='text.secondary'
+          textAlign='center'
         >
-          {noteList.map(item => (
-            <NoteItem
-              key={item.id}
-              {...item}
-              onDeleteButtonClick={onDeleteButtonClick}
-            />
-          ))}
-        </Grid>
-      </Stack>
+          The notes are empty
+        </Typography>
+      ) : (
+        <Stack>
+          <Grid
+            container
+            spacing={24}
+          >
+            {noteList.map(item => (
+              <NoteItem
+                key={item.id}
+                {...item}
+                onDeleteButtonClick={onDeleteButtonClick}
+              />
+            ))}
+          </Grid>
+        </Stack>
+      )}
     </Stack>
   )
 }
