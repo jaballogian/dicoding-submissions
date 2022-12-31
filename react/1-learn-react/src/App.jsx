@@ -16,6 +16,7 @@ class App extends Component {
     super(props)
 
     this.state = {
+      search: '',
       noteList: getInitialData(),
       filteredNoteList: getInitialData(),
     }
@@ -27,23 +28,21 @@ class App extends Component {
 
   onAddNewNoteHandler ({ title, body }) {
     this.setState((prevState) => {
-      const newNoteItem = {
-        id: +new Date(),
-        title,
-        body,
-        archived: false,
-        createdAt: new Date(),
-      }
+      const newNoteList = [
+        ...prevState.noteList,
+        {
+          id: +new Date(),
+          title,
+          body,
+          archived: false,
+          createdAt: new Date(),
+        },
+      ]
 
       return {
-        noteList: [
-          ...prevState.noteList,
-          newNoteItem,
-        ],
-        filteredNoteList: [
-          ...prevState.filteredNoteList,
-          newNoteItem,
-        ],
+        ...prevState,
+        noteList: newNoteList,
+        filteredNoteList: newNoteList.filter(item => item.title.toLowerCase().includes(this.state.search.toLowerCase())),
       }
     })
   }
@@ -55,7 +54,7 @@ class App extends Component {
       return {
         ...prevState,
         noteList: newNoteList,
-        filteredNoteList: newNoteList,
+        filteredNoteList: newNoteList.filter(item => item.title.toLowerCase().includes(this.state.search.toLowerCase())),
       }
     })
   }
@@ -64,6 +63,7 @@ class App extends Component {
     this.setState((prevState) => {
       return {
         ...prevState,
+        search,
         filteredNoteList: prevState.noteList.filter(item => item.title.toLowerCase().includes(search.toLowerCase())),
       }
     })
