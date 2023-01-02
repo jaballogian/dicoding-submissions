@@ -89,12 +89,7 @@ class Main extends Component {
 
   render() {
     return (
-      <Stack 
-        minHeight='100vh'
-        sx={(theme) => ({
-          backgroundColor: theme.palette.background.default,
-        })}
-      >
+      <>
         {/* HEADER */}
         <Header onSearchChange={this.onSearchChangeHandler}/>
         
@@ -118,7 +113,7 @@ class Main extends Component {
             onArchiveButtonClick={this.onArchiveNoteHandler}
           />
         </Stack>
-      </Stack>
+      </>
     )
   }
 }

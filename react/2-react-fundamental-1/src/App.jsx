@@ -1,6 +1,9 @@
 import { Suspense, lazy } from 'react'
 import { Routes, Route } from 'react-router-dom'
 
+// LAYOUTS
+import LayoutMain from 'layouts/Main'
+
 // MUIS
 import Stack from '@mui/material/Stack'
 
@@ -21,17 +24,21 @@ const App = () => {
   ]
 
   return (
-    <Suspense fallback={(
+    <Suspense fallback={
       <Stack>
         Loading
       </Stack>
-    )}>
+    }>
       <Routes>
         {pageList.map((item, index) => (
           <Route 
             key={index}
             path={item.path} 
-            element={item.element}
+            element={
+              <LayoutMain>
+                {item.element}
+              </LayoutMain>
+            }
           />
         ))}
       </Routes>
