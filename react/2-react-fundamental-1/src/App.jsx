@@ -11,6 +11,7 @@ import Stack from '@mui/material/Stack'
 import { getInitialData } from 'utilities/data'
 
 // PAGES
+const Error = lazy(() => import('pages/Error'))
 const Main = lazy(() => import('pages/Main'))
 const NoteDetail = lazy(() => import('pages/NoteDetail'))
 
@@ -107,6 +108,15 @@ class App extends Component {
         path: '/detail/:id',
         element: <NoteDetail filteredNoteList={this.state.filteredNoteList}/>,
       },
+      {
+        path: '*',
+        element: (
+          <Error 
+            code={404}
+            message='Sorry, we could not find the page'
+          />
+        ),
+      }
     ]
 
     return (
