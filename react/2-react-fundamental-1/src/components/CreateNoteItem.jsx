@@ -1,4 +1,5 @@
 import { Component } from 'react'
+import PropTypes from 'prop-types'
 
 // MUIS
 import Button from '@mui/material/Button'
@@ -136,6 +137,12 @@ class CreateNoteItem extends Component {
       </Stack>
     )
   }
+}
+
+CreateNoteItem.defaultProps = {}
+
+CreateNoteItem.propTypes = {
+  onSubmitButtonClick: PropTypes.func.isRequired,
 }
 
 export default CreateNoteItem
