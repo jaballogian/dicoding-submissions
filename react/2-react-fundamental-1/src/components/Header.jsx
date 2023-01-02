@@ -1,4 +1,5 @@
 import { Component } from 'react'
+import PropTypes from 'prop-types'
 
 // MUIS
 import AppBar from '@mui/material/AppBar'
@@ -77,6 +78,12 @@ class Header extends Component {
       </AppBar>
     )
   } 
+}
+
+Header.defaultProps = {}
+
+Header.propTypes = {
+  onSearchChange: PropTypes.func.isRequired,
 }
 
 export default Header
