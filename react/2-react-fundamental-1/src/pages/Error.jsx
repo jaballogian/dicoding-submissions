@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types'
+
 // MUIS
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
@@ -27,6 +29,16 @@ const Error = (props) => {
       </Typography>
     </Stack>
   )
+}
+
+Error.defaultProps = {
+  code: '',
+  message: '',
+}
+
+Error.propTypes = {
+  code: PropTypes.oneOfType([ PropTypes.string, PropTypes.number ]).isRequired,
+  message: PropTypes.string.isRequired,
 }
 
 export default Error
