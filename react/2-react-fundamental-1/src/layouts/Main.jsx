@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import { useLocation } from 'react-router-dom'
 
 // COMPONENTS
 import Header from 'components/Header'
@@ -12,6 +13,8 @@ const Main = (props) => {
     onSearchChange,
   } = props
 
+  const { pathname } = useLocation()
+
   return (
     <Stack 
       minHeight='100vh'
@@ -20,7 +23,10 @@ const Main = (props) => {
       })}
     >
       {/* HEADER */}
-      <Header onSearchChange={onSearchChange}/>
+      <Header 
+        onSearchChange={onSearchChange}
+        isWithSearch={!pathname.includes('detail')}
+      />
       
       {/* CHILDREN */}
       {children}

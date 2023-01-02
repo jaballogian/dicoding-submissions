@@ -52,6 +52,7 @@ class Header extends Component {
           </Typography>
 
           {/* SEARCH INPUT */}
+          {this.props.isWithSearch &&
           <FormControl>
             <OutlinedInput 
               placeholder='Search a title note here'
@@ -73,16 +74,19 @@ class Header extends Component {
               value={this.state.search}
               onChange={this.onSearchChangeHandler}
             />
-          </FormControl>
+          </FormControl>}
         </Toolbar>
       </AppBar>
     )
   } 
 }
 
-Header.defaultProps = {}
+Header.defaultProps = {
+  isWithSearch: true,
+}
 
 Header.propTypes = {
+  isWithSearch: PropTypes.bool.isRequired,
   onSearchChange: PropTypes.func.isRequired,
 }
 
