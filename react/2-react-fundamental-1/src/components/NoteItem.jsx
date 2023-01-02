@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import { useNavigate } from 'react-router-dom'
 
 // MUIS
 import Button from '@mui/material/Button'
@@ -18,6 +19,13 @@ const NoteItem = (props) => {
     onDeleteButtonClick, 
     onArchiveButtonClick,
   } = props
+
+  const navigate = useNavigate()
+
+  const onDetailButtonClickHandler = (event, id) => {
+    event.preventDefault()
+    navigate(`/detail/${id}`)  
+  }
 
   return (
     <Grid
@@ -73,6 +81,7 @@ const NoteItem = (props) => {
             variant='contained'
             fullWidth
             href={`/detail/${id}`}
+            onClick={(event) => onDetailButtonClickHandler(event, id)}
             sx={{ marginLeft: 8 }}
           >
             Detail
