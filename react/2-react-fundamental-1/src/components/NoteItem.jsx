@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types'
+
 // MUIS
 import Button from '@mui/material/Button'
 import Card from '@mui/material/Card'
@@ -89,6 +91,23 @@ const NoteItem = (props) => {
       </Card>
     </Grid>
   )
+}
+
+NoteItem.defaultProps = {
+  title: '-', 
+  createdAt: '', 
+  body: '-', 
+  type: 'active',
+}
+
+NoteItem.propTypes = {
+  id: PropTypes.oneOfType([ PropTypes.string, PropTypes.number ]).isRequired, 
+  title: PropTypes.string.isRequired, 
+  createdAt: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]).isRequired, 
+  body: PropTypes.string.isRequired, 
+  type: PropTypes.oneOf([ 'active', 'archived' ]).isRequired,
+  onDeleteButtonClick: PropTypes.func.isRequired, 
+  onArchiveButtonClick: PropTypes.func.isRequired,
 }
 
 export default NoteItem
