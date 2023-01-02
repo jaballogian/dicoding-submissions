@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types'
+
 // COMPONENTS
 import NoteItem from 'components/NoteItem'
 
@@ -60,6 +62,18 @@ const NoteList = (props) => {
       )}
     </Stack>
   )
+}
+
+NoteList.defaultProps = {
+  noteList: [], 
+  type: 'active',
+}
+
+NoteList.propTypes = {
+  noteList: PropTypes.array.isRequired, 
+  type: PropTypes.oneOf([ 'active', 'archived' ]).isRequired,
+  onDeleteButtonClick: PropTypes.func.isRequired,
+  onArchiveButtonClick: PropTypes.func.isRequired,
 }
 
 export default NoteList
