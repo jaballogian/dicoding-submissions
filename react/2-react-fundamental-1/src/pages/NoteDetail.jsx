@@ -5,6 +5,9 @@ import { useParams } from 'react-router-dom'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 
+// PAGES
+import Error from 'pages/Error'
+
 // UTILITIES
 import { showFormattedDate } from 'utilities/data'
 
@@ -15,7 +18,7 @@ const NoteDetail = (props) => {
 
   const selectedNote = filteredNoteList.find(item => item.id === id || item.id === Number(id))
 
-  return (
+  if (selectedNote) return (
     <Stack padding={40}>
       {/* TITLE */}
       <Typography
@@ -46,6 +49,12 @@ const NoteDetail = (props) => {
         {selectedNote.body}
       </Typography>
     </Stack>
+  )
+  else return (
+    <Error
+      code={404}
+      message='Sorry, we could not find the note'
+    />
   )
 }
 
