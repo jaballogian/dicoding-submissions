@@ -105,7 +105,7 @@ class App extends Component {
       },
       {
         path: '/detail/:id',
-        element: <NoteDetail/>,
+        element: <NoteDetail filteredNoteList={this.state.filteredNoteList}/>,
       },
     ]
 
