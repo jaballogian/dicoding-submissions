@@ -65,9 +65,20 @@ const NoteItem = (props) => {
             Delete
           </Button>
 
+          {/* DETAIL BUTTON */}
+          <Button
+            color='info'
+            variant='contained'
+            fullWidth
+            href={`/detail/${id}`}
+            sx={{ marginLeft: 8 }}
+          >
+            Detail
+          </Button>
+
           {/* ARCHIVE BUTTON */}
           <Button
-            color='primary'
+            color='success'
             variant='contained'
             fullWidth
             onClick={() => onArchiveButtonClick(id)}
