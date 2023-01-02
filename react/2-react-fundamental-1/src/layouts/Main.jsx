@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types'
+
 // MUIS
 import Stack from '@mui/material/Stack'
 
@@ -14,6 +16,12 @@ const Main = (props) => {
       {children}
     </Stack>
   )
+}
+
+Main.defaultProps = {}
+
+Main.propTypes = {
+  children: PropTypes.node.isRequired,
 }
 
 export default Main
