@@ -159,13 +159,13 @@ CreateNoteItem.defaultProps = {}
 
 CreateNoteItem.propTypes = {
   onSubmitButtonClick: PropTypes.func.isRequired,
+  navigate: PropTypes.func.isRequired,
 }
 
 CreateNoteItemWrapper.defaultProps = {}
 
 CreateNoteItemWrapper.propTypes = {
   onSubmitButtonClick: PropTypes.func.isRequired,
-  navigate: PropTypes.func.isRequired,
 }
 
 export default CreateNoteItemWrapper
