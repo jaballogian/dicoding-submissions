@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import AppBar from '@mui/material/AppBar'
 import FormControl from '@mui/material/FormControl'
 import InputAdornment from '@mui/material/InputAdornment'
+import Link from '@mui/material/Link'
 import OutlinedInput from '@mui/material/OutlinedInput'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
@@ -43,13 +44,19 @@ class Header extends Component {
           alignItems: 'center',
         }}>
           {/* TITLE */}
-          <Typography
-            variant='h5'
-            component='h1'
-            fontWeight={600}
+          <Link 
+            href='/'
+            color='text.primary'
+            underline='none'
           >
-            Note App
-          </Typography>
+            <Typography
+              variant='h5'
+              component='h1'
+              fontWeight={600}
+            >
+              Note App
+            </Typography>
+          </Link>
 
           {/* SEARCH INPUT */}
           {this.props.isWithSearch &&
