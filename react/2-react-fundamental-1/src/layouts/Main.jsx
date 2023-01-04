@@ -25,7 +25,7 @@ const Main = (props) => {
       {/* HEADER */}
       <Header 
         onSearchChange={onSearchChange}
-        isWithSearch={!pathname.includes('detail')}
+        isWithSearch={pathname === '/'}
       />
       
       {/* CHILDREN */}
