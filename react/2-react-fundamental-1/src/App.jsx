@@ -11,6 +11,7 @@ import Stack from '@mui/material/Stack'
 import { getInitialData } from 'utilities/data'
 
 // PAGES
+const CreateNoteItem = lazy(() => import('pages/CreateNoteItem'))
 const Error = lazy(() => import('pages/Error'))
 const Main = lazy(() => import('pages/Main'))
 const NoteDetail = lazy(() => import('pages/NoteDetail'))
@@ -98,7 +99,6 @@ class App extends Component {
         element: (
           <Main
             filteredNoteList={this.state.filteredNoteList}
-            onAddNewNote={this.onAddNewNoteHandler}
             onDeleteNote={this.onDeleteNoteHandler}
             onArchiveNote={this.onArchiveNoteHandler}
           />
@@ -107,6 +107,10 @@ class App extends Component {
       {
         path: '/detail/:id',
         element: <NoteDetail filteredNoteList={this.state.filteredNoteList}/>,
+      },
+      {
+        path: '/add-new',
+        element: <CreateNoteItem onSubmitButtonClick={this.onAddNewNoteHandler}/>,
       },
       {
         path: '*',

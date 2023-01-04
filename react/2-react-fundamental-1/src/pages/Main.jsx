@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types'
 
 // COMPONENTS
-import CreateNoteItem from 'components/CreateNoteItem'
 import NoteList from 'components/NoteList'
 
 // MUIS
@@ -10,16 +9,12 @@ import Stack from '@mui/material/Stack'
 const Main = (props) => {
   const { 
     filteredNoteList,
-    onAddNewNote,
     onDeleteNote,
     onArchiveNote,
   } = props
 
   return (
-    <>        
-      {/* CREATE A NOTE ITEM */}
-      <CreateNoteItem onSubmitButtonClick={onAddNewNote}/>
-
+    <>
       <Stack direction='row'>
         {/* ACTIVE NOTES */}
         <NoteList 
@@ -47,7 +42,6 @@ Main.defaultProps = {
 
 Main.propTypes = {
   filteredNoteList: PropTypes.array.isRequired,
-  onAddNewNote: PropTypes.func.isRequired,
   onDeleteNote: PropTypes.func.isRequired,
   onArchiveNote: PropTypes.func.isRequired,
 }
