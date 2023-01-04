@@ -1,5 +1,6 @@
 import { Component } from 'react'
 import PropTypes from 'prop-types'
+import { useNavigate } from 'react-router-dom'
 
 // MUIS
 import Button from '@mui/material/Button'
@@ -53,6 +54,8 @@ class CreateNoteItem extends Component {
     this.props.onSubmitButtonClick({ ...noteItemData })
 
     this.setState(initialState)
+
+    this.props.navigate('/')
   }
 
   render() {
@@ -139,10 +142,30 @@ class CreateNoteItem extends Component {
   }
 }
 
+const CreateNoteItemWrapper = (props) => {
+  const { onSubmitButtonClick } = props
+
+  const navigate = useNavigate()
+
+  return (
+    <CreateNoteItem 
+      onSubmitButtonClick={onSubmitButtonClick}
+      navigate={navigate}
+    />
+  )
+}
+
 CreateNoteItem.defaultProps = {}
 
 CreateNoteItem.propTypes = {
   onSubmitButtonClick: PropTypes.func.isRequired,
 }
 
-export default CreateNoteItem
+CreateNoteItemWrapper.defaultProps = {}
+
+CreateNoteItemWrapper.propTypes = {
+  onSubmitButtonClick: PropTypes.func.isRequired,
+  navigate: PropTypes.func.isRequired,
+}
+
+export default CreateNoteItemWrapper
