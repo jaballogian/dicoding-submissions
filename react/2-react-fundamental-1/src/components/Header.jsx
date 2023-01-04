@@ -1,5 +1,6 @@
 import { Component } from 'react'
 import PropTypes from 'prop-types'
+import { useNavigate } from 'react-router-dom'
 
 // MUIS
 import AppBar from '@mui/material/AppBar'
@@ -23,6 +24,7 @@ class Header extends Component {
     }
 
     this.onSearchChangeHandler = this.onSearchChangeHandler.bind(this)
+    this.onTitleClickHandler = this.onTitleClickHandler.bind(this)
   }
 
   onSearchChangeHandler (event) {
@@ -33,6 +35,11 @@ class Header extends Component {
     })
 
     this.props.onSearchChange(event.target.value)
+  }
+
+  onTitleClickHandler (event) {
+    event.preventDefault()
+    this.props.navigate('/')
   }
 
   render () {
@@ -48,6 +55,7 @@ class Header extends Component {
             href='/'
             color='text.primary'
             underline='none'
+            onClick={this.onTitleClickHandler}
           >
             <Typography
               variant='h5'
@@ -88,6 +96,23 @@ class Header extends Component {
   } 
 }
 
+const HeaderWrapper = (props) => {
+  const {
+    isWithSearch,
+    onSearchChange,
+  } = props
+
+  const navigate = useNavigate()
+
+  return (
+    <Header
+      isWithSearch={isWithSearch}
+      onSearchChange={onSearchChange}
+      navigate={navigate}
+    />
+  )
+}
+
 Header.defaultProps = {
   isWithSearch: true,
 }
@@ -95,6 +120,16 @@ Header.defaultProps = {
 Header.propTypes = {
   isWithSearch: PropTypes.bool.isRequired,
   onSearchChange: PropTypes.func.isRequired,
+  navigate: PropTypes.func.isRequired,
 }
 
-export default Header
+HeaderWrapper.defaultProps = {
+  isWithSearch: true,
+}
+
+HeaderWrapper.propTypes = {
+  isWithSearch: PropTypes.bool.isRequired,
+  onSearchChange: PropTypes.func.isRequired,
+}
+
+export default HeaderWrapper
