@@ -9,6 +9,7 @@ import FormControl from '@mui/material/FormControl'
 import IconButton from '@mui/material/IconButton'
 import InputAdornment from '@mui/material/InputAdornment'
 import InputLabel from '@mui/material/InputLabel'
+import Link from '@mui/material/Link'
 import OutlinedInput from '@mui/material/OutlinedInput'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
@@ -114,6 +115,21 @@ const SignUp = () => {
         >
           Sign Up
         </Button>
+
+        {/* SIGN IN TEXT */}
+        <Typography 
+          component='p'
+          color='text.primary'
+          textAlign='center'
+        >
+          Already have an account?&nbsp;
+          <Link
+            href='/sign-in'
+            underline='hover'
+          >
+            Sign in here
+          </Link>
+        </Typography>
       </Stack>
     </Stack>
   )
