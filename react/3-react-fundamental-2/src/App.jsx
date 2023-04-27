@@ -1,4 +1,4 @@
-import { Component, Suspense, lazy } from 'react'
+import { Suspense, lazy, useState } from 'react'
 import { Routes, Route } from 'react-router-dom'
 
 // LAYOUTS
@@ -18,146 +18,118 @@ const NoteDetail = lazy(() => import('pages/NoteDetail'))
 const SignIn = lazy(() => import('pages/SignIn'))
 const SignUp = lazy(() => import('pages/SignUp'))
 
-class App extends Component {
-  constructor(props) {
-    super(props)
+const App = () => {
+  const [ search, setSearch ] = useState('')
+  const [ noteList, setNoteList ] = useState(getInitialData())
+  const [ filteredNoteList, setFilteredNoteList ] = useState(getInitialData())
 
-    this.state = {
-      search: '',
-      noteList: getInitialData(),
-      filteredNoteList: getInitialData(),
-    }
-
-    this.onAddNewNoteHandler = this.onAddNewNoteHandler.bind(this)
-    this.onDeleteNoteHandler = this.onDeleteNoteHandler.bind(this)
-    this.onArchiveNoteHandler = this.onArchiveNoteHandler.bind(this)
-    this.onSearchChangeHandler = this.onSearchChangeHandler.bind(this)
-  }
-
-  onAddNewNoteHandler ({ title, body }) {
-    this.setState((prevState) => {
-      const newNoteList = [
-        ...prevState.noteList,
-        {
-          id: +new Date(),
-          title,
-          body,
-          archived: false,
-          createdAt: new Date(),
-        },
-      ]
-
-      return {
-        ...prevState,
-        noteList: newNoteList,
-        filteredNoteList: newNoteList.filter(item => item.title.toLowerCase().includes(this.state.search.toLowerCase())),
-      }
-    })
-  }
-
-  onDeleteNoteHandler (id) {
-    this.setState((prevState) => {
-      const newNoteList = prevState.noteList.filter(item => item.id !== id)
-
-      return {
-        ...prevState,
-        noteList: newNoteList,
-        filteredNoteList: newNoteList.filter(item => item.title.toLowerCase().includes(this.state.search.toLowerCase())),
-      }
-    })
-  }
-
-  onArchiveNoteHandler (id) {
-    this.setState((prevState) => {
-      const newNoteList = prevState.noteList.map(item => {
-        return {
-          ...item,
-          archived: item.id === id ? !item.archived : item.archived,
-        }
-      })
-
-      return {
-        ...prevState,
-        noteList: newNoteList,
-        filteredNoteList: newNoteList.filter(item => item.title.toLowerCase().includes(this.state.search.toLowerCase())),
-      }
-    })
-  }
-
-  onSearchChangeHandler (search) {
-    this.setState((prevState) => {
-      return {
-        ...prevState,
-        search,
-        filteredNoteList: prevState.noteList.filter(item => item.title.toLowerCase().includes(search.toLowerCase())),
-      }
-    })
-  }
-
-  render () {
-    const pageList = [
-      // AUTHENTICATION PAGES
+  const onAddNewNoteHandler = ({ title, body }) => {    
+    const newNoteList = [
+      ...noteList,
       {
-        path: '/sign-up',
-        element: <SignUp/>,
+        id: +new Date(),
+        title,
+        body,
+        archived: false,
+        createdAt: new Date(),
       },
-      {
-        path: '/sign-in',
-        element: <SignIn/>,
-      },
-      // PRIVATE PAGES
-      {
-        path: '/',
-        element: (
-          <Main
-            filteredNoteList={this.state.filteredNoteList}
-            onDeleteNote={this.onDeleteNoteHandler}
-            onArchiveNote={this.onArchiveNoteHandler}
-          />
-        ),
-      },
-      {
-        path: '/detail/:id',
-        element: <NoteDetail filteredNoteList={this.state.filteredNoteList}/>,
-      },
-      {
-        path: '/add-new',
-        element: <CreateNoteItem onSubmitButtonClick={this.onAddNewNoteHandler}/>,
-      },
-      // FREE ACCESS PAGES
-      {
-        path: '*',
-        element: (
-          <Error 
-            code={404}
-            message='Sorry, we could not find the page'
-          />
-        ),
-      }
     ]
 
-    return (
-      <Suspense fallback={
-        <Stack>
-          Loading
-        </Stack>
-      }>
-        <Routes>
-          {pageList.map((item, index) => (
-            <Route 
-              key={index}
-              path={item.path} 
-              element={
-                <LayoutMain onSearchChange={this.onSearchChangeHandler}>
-                  {item.element}
-                </LayoutMain>
-              }
-            />
-          ))}
-        </Routes>
-      </Suspense>
-    )
+    setNoteList(newNoteList)
+    setFilteredNoteList(newNoteList.filter(item => item.title.toLowerCase().includes(search.toLowerCase())))
   }
+
+  const onDeleteNoteHandler = (id) => {
+    const newNoteList = [...noteList].filter(item => item.id !== id)
+    
+    setNoteList(newNoteList)
+    setFilteredNoteList(newNoteList.filter(item => item.title.toLowerCase().includes(search.toLowerCase())))
+  }
+
+  const onArchiveNoteHandler = (id) => {
+    const newNoteList = [...noteList].map(item => {
+      return {
+        ...item,
+        archived: item.id === id ? !item.archived : item.archived,
+      }
+    })
+
+    setNoteList(newNoteList)
+    setFilteredNoteList(newNoteList.filter(item => item.title.toLowerCase().includes(search.toLowerCase())))
+  }
+
+  const onSearchChangeHandler = (search) => {
+    setSearch(search)
+    setFilteredNoteList(noteList.filter(item => item.title.toLowerCase().includes(search.toLowerCase())))
+  }
+
+  const pageList = [
+    // AUTHENTICATION PAGES
+    {
+      path: '/sign-up',
+      type: 'authentication',
+      element: <SignUp/>,
+    },
+    {
+      path: '/sign-in',
+      type: 'authentication',
+      element: <SignIn/>,
+    },
+    // PRIVATE PAGES
+    {
+      path: '/',
+      type: 'private',
+      element: (
+        <Main
+          filteredNoteList={filteredNoteList}
+          onDeleteNote={onDeleteNoteHandler}
+          onArchiveNote={onArchiveNoteHandler}
+        />
+      ),
+    },
+    {
+      path: '/detail/:id',
+      type: 'private',
+      element: <NoteDetail filteredNoteList={filteredNoteList}/>,
+    },
+    {
+      path: '/add-new',
+      type: 'private',
+      element: <CreateNoteItem onSubmitButtonClick={onAddNewNoteHandler}/>,
+    },
+    // FREE ACCESS PAGES
+    {
+      path: '*',
+      element: (
+        <Error 
+          code={404}
+          message='Sorry, we could not find the page'
+        />
+      ),
+    }
+  ]
+
+  return (
+    <Suspense fallback={
+      <Stack>
+        Loading
+      </Stack>
+    }>
+      <Routes>
+        {pageList.map((item, index) => (
+          <Route 
+            key={index}
+            path={item.path} 
+            element={
+              <LayoutMain onSearchChange={onSearchChangeHandler}>
+                {item.element}
+              </LayoutMain>
+            }
+          />
+        ))}
+      </Routes>
+    </Suspense>
+  )
 }
 
 export default App
