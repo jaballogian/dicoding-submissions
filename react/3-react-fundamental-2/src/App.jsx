@@ -23,36 +23,36 @@ const App = () => {
   const [ noteList, setNoteList ] = useState(getInitialData())
   const [ filteredNoteList, setFilteredNoteList ] = useState(getInitialData())
 
-  const onAddNewNoteHandler = ({ title, body }) => {    
-    const newNoteList = [
-      ...noteList,
-      {
-        id: +new Date(),
-        title,
-        body,
-        archived: false,
-        createdAt: new Date(),
-      },
-    ]
-
-    setNoteList(newNoteList)
+  const onAddNewNoteHandler = ({ title, body }) => {   
+    setNoteList(current => {
+      return [ 
+        ...current, 
+        {
+          id: +new Date(),
+          title,
+          body,
+          archived: false,
+          createdAt: new Date(),
+        },
+      ]
+    })
   }
 
-  const onDeleteNoteHandler = (id) => {
-    const newNoteList = [...noteList].filter(item => item.id !== id)
-    
-    setNoteList(newNoteList)
+  const onDeleteNoteHandler = (id) => {   
+    setNoteList(current => {
+      return current.filter(item => item.id !== id)
+    })
   }
 
   const onArchiveNoteHandler = (id) => {
-    const newNoteList = [...noteList].map(item => {
-      return {
-        ...item,
-        archived: item.id === id ? !item.archived : item.archived,
-      }
+    setNoteList(current => {
+      return current.map(item => {
+        return {
+          ...item,
+          archived: item.id === id ? !item.archived : item.archived,
+        }
+      })
     })
-
-    setNoteList(newNoteList)
   }
 
   const pageList = [
