@@ -15,6 +15,7 @@ const CreateNoteItem = lazy(() => import('pages/CreateNoteItem'))
 const Error = lazy(() => import('pages/Error'))
 const Main = lazy(() => import('pages/Main'))
 const NoteDetail = lazy(() => import('pages/NoteDetail'))
+const SignIn = lazy(() => import('pages/SignIn'))
 const SignUp = lazy(() => import('pages/SignUp'))
 
 class App extends Component {
@@ -99,6 +100,10 @@ class App extends Component {
       {
         path: '/sign-up',
         element: <SignUp/>,
+      },
+      {
+        path: '/sign-in',
+        element: <SignIn/>,
       },
       // PRIVATE PAGES
       {
