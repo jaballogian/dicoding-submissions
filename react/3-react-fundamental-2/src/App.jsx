@@ -1,5 +1,5 @@
 import { Suspense, lazy, useState, useEffect } from 'react'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 
 // LAYOUTS
 import LayoutMain from 'layouts/Main'
@@ -22,6 +22,7 @@ const App = () => {
   const [ search, setSearch ] = useState('')
   const [ noteList, setNoteList ] = useState(getInitialData())
   const [ filteredNoteList, setFilteredNoteList ] = useState(getInitialData())
+  const [ user, setUser ] = useState(null)
 
   const onAddNewNoteHandler = ({ title, body }) => {   
     setNoteList(current => {
@@ -92,6 +93,7 @@ const App = () => {
     // FREE ACCESS PAGES
     {
       path: '*',
+      type: 'free',
       element: (
         <Error 
           code={404}
@@ -100,6 +102,30 @@ const App = () => {
       ),
     }
   ]
+
+  const getRouteComponent = (route) => {
+    if (route.type === 'authentication') {
+      return (
+        user ? (
+          <Navigate 
+            replace 
+            to='/'
+          />
+        ) : route.element
+      )
+    }
+    else if (route.type === 'private') {
+      return (
+        user ? route.element : (
+          <Navigate 
+            replace 
+            to='/sign-in'
+          />
+        )
+      )
+    }
+    else if (route.type === 'free') return route.element
+  }
 
   useEffect(() => {
     setFilteredNoteList(noteList.filter(item => item.title.toLowerCase().includes(search.toLowerCase())))
@@ -118,7 +144,7 @@ const App = () => {
             path={item.path} 
             element={
               <LayoutMain onSearchChange={(search) => setSearch(search)}>
-                {item.element}
+                {getRouteComponent(item)}
               </LayoutMain>
             }
           />
