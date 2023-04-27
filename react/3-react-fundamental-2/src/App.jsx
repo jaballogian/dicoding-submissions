@@ -1,4 +1,4 @@
-import { Suspense, lazy, useState } from 'react'
+import { Suspense, lazy, useState, useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
 
 // LAYOUTS
@@ -36,14 +36,12 @@ const App = () => {
     ]
 
     setNoteList(newNoteList)
-    setFilteredNoteList(newNoteList.filter(item => item.title.toLowerCase().includes(search.toLowerCase())))
   }
 
   const onDeleteNoteHandler = (id) => {
     const newNoteList = [...noteList].filter(item => item.id !== id)
     
     setNoteList(newNoteList)
-    setFilteredNoteList(newNoteList.filter(item => item.title.toLowerCase().includes(search.toLowerCase())))
   }
 
   const onArchiveNoteHandler = (id) => {
@@ -55,12 +53,10 @@ const App = () => {
     })
 
     setNoteList(newNoteList)
-    setFilteredNoteList(newNoteList.filter(item => item.title.toLowerCase().includes(search.toLowerCase())))
   }
 
   const onSearchChangeHandler = (search) => {
     setSearch(search)
-    setFilteredNoteList(noteList.filter(item => item.title.toLowerCase().includes(search.toLowerCase())))
   }
 
   const pageList = [
@@ -108,6 +104,10 @@ const App = () => {
       ),
     }
   ]
+
+  useEffect(() => {
+    setFilteredNoteList(noteList.filter(item => item.title.toLowerCase().includes(search.toLowerCase())))
+  }, [noteList, search])
 
   return (
     <Suspense fallback={
