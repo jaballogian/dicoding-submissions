@@ -1,33 +1,29 @@
 const keyBase = 'dicoding-submission-react-fundamental'
+const keyAccessToken = `${keyBase}-access-token`
 const keyTheme = `${keyBase}-theme`
-const keyUser = `${keyBase}-user`
+
+// ACCESS TOKEN
+export const setAccessTokenToLocalStorage = (accessToken) => {
+  localStorage.setItem(keyAccessToken, accessToken)
+}
+
+export const readAccessTokenFromLocalStorage = () => {
+  return localStorage.getItem(keyAccessToken) ? localStorage.getItem(keyAccessToken) : null
+}
+
+export const removeAccessTokenFromLocalStorage = () => {
+  return localStorage.removeItem(keyAccessToken)
+}
 
 // THEME
 export const setThemeToLocalStorage = (theme) => {
-  localStorage.setItem(keyTheme, JSON.stringify(theme))
+  localStorage.setItem(keyTheme, theme)
 }
 
 export const readThemeFromLocalStorage = () => {
-  return localStorage.getItem(keyTheme)
-    ? JSON.parse(localStorage.getItem(keyTheme))
-    : {}
+  return localStorage.getItem(keyTheme) ? localStorage.getItem(keyTheme) : 'light'
 }
 
 export const removeThemeFromLocalStorage = () => {
   return localStorage.removeItem(keyTheme)
-}
-
-// USER
-export const setUserToLocalStorage = (user) => {
-  localStorage.setItem(keyUser, JSON.stringify(user))
-}
-
-export const readUserFromLocalStorage = () => {
-  return localStorage.getItem(keyUser)
-    ? JSON.parse(localStorage.getItem(keyUser))
-    : {}
-}
-
-export const removeUserFromLocalStorage = () => {
-  return localStorage.removeItem(keyUser)
 }
