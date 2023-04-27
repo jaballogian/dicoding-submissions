@@ -1,4 +1,3 @@
-import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 
@@ -7,6 +6,9 @@ import App from './App'
 
 // CONSTANTS
 import customTheme from 'constants/theme'
+
+// CONTEXTS
+import { AppContextProvider } from 'contexts/AppContext'
 
 // MUIS
 import { 
@@ -21,9 +23,11 @@ const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <ThemeProvider theme={customTheme}>
     <StyledEngineProvider injectFirst>
-      <BrowserRouter>
-        <App/>
-      </BrowserRouter>
+      <AppContextProvider>
+        <BrowserRouter>
+          <App/>
+        </BrowserRouter>
+      </AppContextProvider>
     </StyledEngineProvider>
   </ThemeProvider>
 )
