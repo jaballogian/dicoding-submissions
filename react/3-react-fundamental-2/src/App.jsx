@@ -55,10 +55,6 @@ const App = () => {
     setNoteList(newNoteList)
   }
 
-  const onSearchChangeHandler = (search) => {
-    setSearch(search)
-  }
-
   const pageList = [
     // AUTHENTICATION PAGES
     {
@@ -121,7 +117,7 @@ const App = () => {
             key={index}
             path={item.path} 
             element={
-              <LayoutMain onSearchChange={onSearchChangeHandler}>
+              <LayoutMain onSearchChange={(search) => setSearch(search)}>
                 {item.element}
               </LayoutMain>
             }
