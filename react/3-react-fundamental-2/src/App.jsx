@@ -15,6 +15,7 @@ const CreateNoteItem = lazy(() => import('pages/CreateNoteItem'))
 const Error = lazy(() => import('pages/Error'))
 const Main = lazy(() => import('pages/Main'))
 const NoteDetail = lazy(() => import('pages/NoteDetail'))
+const SignUp = lazy(() => import('pages/SignUp'))
 
 class App extends Component {
   constructor(props) {
@@ -94,6 +95,12 @@ class App extends Component {
 
   render () {
     const pageList = [
+      // AUTHENTICATION PAGES
+      {
+        path: '/sign-up',
+        element: <SignUp/>,
+      },
+      // PRIVATE PAGES
       {
         path: '/',
         element: (
@@ -112,6 +119,7 @@ class App extends Component {
         path: '/add-new',
         element: <CreateNoteItem onSubmitButtonClick={this.onAddNewNoteHandler}/>,
       },
+      // FREE ACCESS PAGES
       {
         path: '*',
         element: (
