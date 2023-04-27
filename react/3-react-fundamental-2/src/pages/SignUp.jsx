@@ -1,5 +1,8 @@
 import { useState } from 'react'
 
+// HOOKS
+import useInput from 'hooks/useInput'
+
 // MUIS
 import Button from '@mui/material/Button'
 import FormControl from '@mui/material/FormControl'
@@ -15,6 +18,10 @@ import IconVisibility from '@mui/icons-material/Visibility'
 import IconVisibilityOff from '@mui/icons-material/VisibilityOff'
 
 const SignUp = () => {
+  const [ name, onNameChange ] = useInput('')
+  const [ email, onEmailChange ] = useInput('')
+  const [ password, onPasswordChange ] = useInput('')
+
   const [ isPasswordShown, setIsPasswordShown ] = useState(false)
 
   return (
@@ -52,6 +59,8 @@ const SignUp = () => {
             type='text'
             name='name'
             label='Name'
+            value={name}
+            onChange={onNameChange}
           />
         </FormControl>
 
@@ -66,6 +75,8 @@ const SignUp = () => {
             type='email'
             name='email'
             label='Email Address'
+            value={email}
+            onChange={onEmailChange}
           />
         </FormControl>
 
@@ -80,6 +91,8 @@ const SignUp = () => {
             type={isPasswordShown ? 'text' : 'password'}
             name='password'
             label='Password'
+            value={password}
+            onChange={onPasswordChange}
             endAdornment={
               <InputAdornment position='end'>
                 <IconButton
