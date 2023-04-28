@@ -13,8 +13,12 @@ import LayoutMain from 'layouts/Main'
 // MUIS
 import Stack from '@mui/material/Stack'
 
+// SERVICES
+import { getUserLogged } from 'services/dicoding'
+
 // UTILITIES
 import { getInitialData } from 'utilities/data'
+import { readAccessTokenFromLocalStorage } from 'utilities/localStorage'
 
 // PAGES
 const CreateNoteItem = lazy(() => import('pages/CreateNoteItem'))
@@ -31,6 +35,8 @@ const App = () => {
   const [ noteList, setNoteList ] = useState(getInitialData())
   const [ filteredNoteList, setFilteredNoteList ] = useState(getInitialData())
   const [ user, setUser ] = useState(null)
+
+  const accessToken = readAccessTokenFromLocalStorage()
 
   const onAddNewNoteHandler = ({ title, body }) => {   
     setNoteList(current => {
@@ -135,9 +141,21 @@ const App = () => {
     else if (route.type === 'free') return route.element
   }
 
+  const updateUserInformation = async () => {
+    const response = await getUserLogged()
+    
+    if (response.error === false) {
+      setUser(response.data)
+    }
+  }
+
   useEffect(() => {
     setFilteredNoteList(noteList.filter(item => item.title.toLowerCase().includes(search.toLowerCase())))
   }, [noteList, search])
+
+  useEffect(() => {
+    if (accessToken) updateUserInformation()
+  }, [accessToken])
 
   return (
     <Suspense fallback={
