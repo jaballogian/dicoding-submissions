@@ -1,5 +1,11 @@
-import { Suspense, lazy, useState, useEffect } from 'react'
+import { Suspense, lazy, useState, useEffect, useContext } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
+
+// COMPONENTS
+import Snackbar from 'components/Snackbar'
+
+// CONTEXTS
+import { AppContext } from 'contexts/AppContext'
 
 // LAYOUTS
 import LayoutMain from 'layouts/Main'
@@ -19,6 +25,8 @@ const SignIn = lazy(() => import('pages/SignIn'))
 const SignUp = lazy(() => import('pages/SignUp'))
 
 const App = () => {
+  const { snackbar, setSnackbar } = useContext(AppContext)
+
   const [ search, setSearch ] = useState('')
   const [ noteList, setNoteList ] = useState(getInitialData())
   const [ filteredNoteList, setFilteredNoteList ] = useState(getInitialData())
@@ -137,6 +145,7 @@ const App = () => {
         Loading
       </Stack>
     }>
+      {/* PAGES */}
       <Routes>
         {pageList.map((item, index) => (
           <Route 
@@ -150,6 +159,14 @@ const App = () => {
           />
         ))}
       </Routes>
+
+      {/* SNACKBAR */}
+      <Snackbar
+        open={snackbar.open}
+        setToast={setSnackbar}
+        severity={snackbar.severity}
+        message={snackbar.message}
+      />
     </Suspense>
   )
 }
