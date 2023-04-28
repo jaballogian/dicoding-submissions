@@ -1,4 +1,8 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
+
+// CONTEXTS
+import { AppContext } from 'contexts/AppContext'
 
 // HOOKS
 import useInput from 'hooks/useInput'
@@ -18,11 +22,46 @@ import Typography from '@mui/material/Typography'
 import IconVisibility from '@mui/icons-material/Visibility'
 import IconVisibilityOff from '@mui/icons-material/VisibilityOff'
 
+// SERVICES
+import { login } from 'services/dicoding'
+
+// UTILITIES
+import { setAccessTokenToLocalStorage } from 'utilities/localStorage'
+
 const SignIn = () => {
   const [ email, onEmailChange ] = useInput('')
   const [ password, onPasswordChange ] = useInput('')
 
+  const { 
+    setIsLoading,
+    setSnackbar, 
+  } = useContext(AppContext)
+
+  const navigate = useNavigate()
+
   const [ isPasswordShown, setIsPasswordShown ] = useState(false)
+
+  const submitFormHandler = async (event) => {
+    event.preventDefault()
+    setIsLoading(true)
+    
+    const response = await login({ email, password })
+    
+    let severity = 'error'
+    if (response.error === false) {
+      severity = 'success'
+      setAccessTokenToLocalStorage(response.data.accessToken)
+      navigate('/')
+    }
+
+    setSnackbar({
+      open: true,
+      severity,
+      message: response.message,
+    })
+
+    setIsLoading(false)
+  }
 
   return (
     <Stack 
@@ -45,8 +84,9 @@ const SignIn = () => {
       {/* FORM */}
       <Stack
         spacing={16}
-        component='form'
         width={600}
+        component='form'
+        onSubmit={submitFormHandler}
       >
         {/* EMAIL INPUT */}
         <FormControl fullWidth>
@@ -55,6 +95,7 @@ const SignIn = () => {
           </InputLabel>
           
           <OutlinedInput 
+            autoFocus
             placeholder='Enter your email address here'
             type='email'
             name='email'
@@ -95,6 +136,7 @@ const SignIn = () => {
         <Button
           variant='contained'
           size='large'
+          type='submit'
         >
           Sign In
         </Button>
