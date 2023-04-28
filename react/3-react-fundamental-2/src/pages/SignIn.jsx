@@ -1,5 +1,4 @@
 import { useState, useContext } from 'react'
-import { useNavigate } from 'react-router-dom'
 
 // CONTEXTS
 import { AppContext } from 'contexts/AppContext'
@@ -37,8 +36,6 @@ const SignIn = () => {
     setSnackbar, 
   } = useContext(AppContext)
 
-  const navigate = useNavigate()
-
   const [ isPasswordShown, setIsPasswordShown ] = useState(false)
 
   const submitFormHandler = async (event) => {
@@ -51,7 +48,6 @@ const SignIn = () => {
     if (response.error === false) {
       severity = 'success'
       setAccessTokenToLocalStorage(response.data.accessToken)
-      navigate('/')
     }
 
     setSnackbar({
