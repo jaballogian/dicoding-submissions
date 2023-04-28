@@ -1,4 +1,8 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
+
+// CONTEXTS
+import { AppContext } from 'contexts/AppContext'
 
 // HOOKS
 import useInput from 'hooks/useInput'
@@ -18,12 +22,43 @@ import Typography from '@mui/material/Typography'
 import IconVisibility from '@mui/icons-material/Visibility'
 import IconVisibilityOff from '@mui/icons-material/VisibilityOff'
 
+// SERVICES
+import { register } from 'services/dicoding'
+
 const SignUp = () => {
   const [ name, onNameChange ] = useInput('')
   const [ email, onEmailChange ] = useInput('')
   const [ password, onPasswordChange ] = useInput('')
 
+  const { 
+    setIsLoading,
+    setSnackbar, 
+  } = useContext(AppContext)
+
+  const navigate = useNavigate()
+
   const [ isPasswordShown, setIsPasswordShown ] = useState(false)
+
+  const submitFormHandler = async (event) => {
+    event.preventDefault()
+    setIsLoading(true)
+
+    const response = await register({ name, email, password })
+    
+    let severity = 'error'
+    if (response.error === false) {
+      severity = 'success'
+      navigate('/sign-in')
+    }
+
+    setSnackbar({
+      open: true,
+      severity,
+      message: response.message,
+    })
+
+    setIsLoading(false)
+  }
 
   return (
     <Stack 
@@ -46,8 +81,9 @@ const SignUp = () => {
       {/* FORM */}
       <Stack
         spacing={16}
-        component='form'
         width={600}
+        component='form'
+        onSubmit={submitFormHandler}
       >
         {/* NAME INPUT */}
         <FormControl fullWidth>
@@ -56,6 +92,7 @@ const SignUp = () => {
           </InputLabel>
           
           <OutlinedInput 
+            autoFocus
             placeholder='Write your name here'
             type='text'
             name='name'
@@ -112,6 +149,7 @@ const SignUp = () => {
         <Button
           variant='contained'
           size='large'
+          type='submit'
         >
           Sign Up
         </Button>
