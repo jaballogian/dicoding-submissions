@@ -1,10 +1,16 @@
+import { useContext } from 'react'
 import PropTypes from 'prop-types'
 import { useLocation } from 'react-router-dom'
 
 // COMPONENTS
 import Header from 'components/Header'
 
+// CONTEXTS
+import { AppContext } from 'contexts/AppContext'
+
 // MUIS
+import Backdrop from '@mui/material/Backdrop'
+import CircularProgress from '@mui/material/CircularProgress'
 import Stack from '@mui/material/Stack'
 
 const Main = (props) => {
@@ -12,6 +18,8 @@ const Main = (props) => {
     children,
     onSearchChange,
   } = props
+
+  const { isLoading } = useContext(AppContext)
 
   const { pathname } = useLocation()
 
@@ -30,6 +38,17 @@ const Main = (props) => {
       
       {/* CHILDREN */}
       {children}
+
+      {/* LOADING */}
+      <Backdrop
+        open={isLoading}
+        sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
+      >
+        <CircularProgress 
+          color='primary'
+          size={60}
+        />
+      </Backdrop>
     </Stack>
   )
 }

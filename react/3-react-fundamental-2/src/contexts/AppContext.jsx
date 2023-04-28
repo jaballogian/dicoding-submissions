@@ -7,6 +7,7 @@ const AppContext = createContext()
 
 const AppContextProvider = (props) => {
   const [ accessToken, setAccessToken ] = useState(() => readAccessTokenFromLocalStorage())
+  const [ isLoading, setIsLoading ] = useState(false)
   const [ locale, setLocale ] = useState('id')
   const [ theme, setTheme ] = useState('dark')
 
@@ -14,6 +15,7 @@ const AppContextProvider = (props) => {
     <AppContext.Provider
       value={{
         accessToken, setAccessToken,
+        isLoading, setIsLoading,
         locale, setLocale,
         theme, setTheme,
       }}
