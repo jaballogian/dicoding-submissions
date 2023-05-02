@@ -15,6 +15,7 @@ import Stack from '@mui/material/Stack'
 
 // SERVICES
 import { 
+  addNote,
   getActiveNotes, 
   getUserLogged, 
 } from 'services/dicoding'
@@ -41,19 +42,16 @@ const App = () => {
 
   const accessToken = readAccessTokenFromLocalStorage()
 
-  const onAddNewNoteHandler = ({ title, body }) => {   
-    setNoteList(current => {
-      return [ 
-        ...current, 
-        {
-          id: +new Date(),
-          title,
-          body,
-          archived: false,
-          createdAt: new Date(),
-        },
-      ]
-    })
+  const getActiveNotesData = async () => {
+    const response = await getActiveNotes()
+    
+    if (response.error === false) setNoteList(response.data)
+  }
+
+  const onAddNewNoteHandler = async ({ title, body }) => {
+    const response = await addNote({ title, body })
+    
+    if (response.error === false) getActiveNotesData()
   }
 
   const onDeleteNoteHandler = (id) => {   
@@ -149,14 +147,6 @@ const App = () => {
     
     if (response.error === false) {
       setUser(response.data)
-    }
-  }
-
-  const getActiveNotesData = async () => {
-    const response = await getActiveNotes()
-    
-    if (response.error === false) {
-      setNoteList(response.data)
     }
   }
 
