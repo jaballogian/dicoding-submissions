@@ -39,12 +39,12 @@ const App = () => {
   const { 
     setIsLoading,
     snackbar, setSnackbar, 
+    setUser,
   } = useContext(AppContext)
 
   const [ search, setSearch ] = useState('')
   const [ noteList, setNoteList ] = useState([])
   const [ filteredNoteList, setFilteredNoteList ] = useState([])
-  const [ user, setUser ] = useState(null)
 
   const accessToken = readAccessTokenFromLocalStorage()
 

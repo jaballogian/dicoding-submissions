@@ -15,6 +15,7 @@ const AppContextProvider = (props) => {
     message: '',
   })
   const [ theme, setTheme ] = useState('dark')
+  const [ user, setUser ] = useState(null)
 
   return (
     <AppContext.Provider
@@ -24,6 +25,7 @@ const AppContextProvider = (props) => {
         locale, setLocale,
         snackbar, setSnackbar,
         theme, setTheme,
+        user, setUser,
       }}
     >
       {props.children}
