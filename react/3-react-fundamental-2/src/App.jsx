@@ -121,7 +121,7 @@ const App = () => {
   const getRouteComponent = (route) => {
     if (route.type === 'authentication') {
       return (
-        user ? (
+        accessToken ? (
           <Navigate 
             replace 
             to='/'
@@ -131,7 +131,7 @@ const App = () => {
     }
     else if (route.type === 'private') {
       return (
-        user ? route.element : (
+        accessToken ? route.element : (
           <Navigate 
             replace 
             to='/sign-in'
