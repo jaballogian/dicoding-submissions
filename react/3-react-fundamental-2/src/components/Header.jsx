@@ -1,19 +1,27 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import PropTypes from 'prop-types'
 import { useNavigate } from 'react-router-dom'
+
+// CONTEXTS
+import { AppContext } from 'contexts/AppContext'
 
 // MUIS
 import AppBar from '@mui/material/AppBar'
 import FormControl from '@mui/material/FormControl'
+import IconButton from '@mui/material/IconButton'
 import InputAdornment from '@mui/material/InputAdornment'
 import Link from '@mui/material/Link'
 import OutlinedInput from '@mui/material/OutlinedInput'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
-import { alpha } from '@mui/material/styles'
+import { alpha, useTheme } from '@mui/material/styles'
 
 // MUI ICONS
+import IconExitToApp from '@mui/icons-material/ExitToApp'
 import IconSearch from '@mui/icons-material/Search'
+
+// UTILITIES
+import { removeAccessTokenFromLocalStorage } from 'utilities/localStorage'
 
 const Header = (props) => {
   const {
@@ -21,7 +29,11 @@ const Header = (props) => {
     onSearchChange,
   } = props
 
+  const { user, setUser } = useContext(AppContext)
+
   const navigate = useNavigate()
+
+  const theme = useTheme()
 
   const [ search, setSearch ] = useState('')
   
@@ -36,11 +48,15 @@ const Header = (props) => {
     navigate('/')
   }
 
+  const signOutUser = () => {
+    setUser(null)
+    removeAccessTokenFromLocalStorage()
+  }
+
   return (
     <AppBar position='static'>
       <Toolbar sx={{ 
         margin: '0px 40px',
-        justifyContent: 'space-between', 
         alignItems: 'center',
       }}>
         {/* TITLE */}
@@ -49,6 +65,7 @@ const Header = (props) => {
           color='text.primary'
           underline='none'
           onClick={onTitleClickHandler}
+          marginRight='auto'
         >
           <Typography
             variant='h5'
@@ -83,6 +100,19 @@ const Header = (props) => {
             onChange={onSearchChangeHandler}
           />
         </FormControl>}
+
+        {/* NAME */}
+        <Typography 
+          component='p'
+          margin='0px 20px'
+        >
+          {user?.name}
+        </Typography>
+
+        {/* LOGOUT BUTTON */}
+        <IconButton onClick={() => signOutUser()}>
+          <IconExitToApp sx={{ color: `${theme.palette.text.primary} !important` }}/>
+        </IconButton>
       </Toolbar>
     </AppBar>
   )
