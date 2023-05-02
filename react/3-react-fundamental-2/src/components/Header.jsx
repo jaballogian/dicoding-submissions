@@ -110,9 +110,10 @@ const Header = (props) => {
         </Typography>
 
         {/* LOGOUT BUTTON */}
+        {user &&
         <IconButton onClick={() => signOutUser()}>
           <IconExitToApp sx={{ color: `${theme.palette.text.primary} !important` }}/>
-        </IconButton>
+        </IconButton>}
       </Toolbar>
     </AppBar>
   )
