@@ -39,7 +39,7 @@ const App = () => {
   const { 
     setIsLoading,
     snackbar, setSnackbar, 
-    setUser,
+    user, setUser,
   } = useContext(AppContext)
 
   const [ search, setSearch ] = useState('')
@@ -210,7 +210,7 @@ const App = () => {
 
   useEffect(() => {
     getAllNotesData()
-  }, [])
+  }, [user])
 
   useEffect(() => {
     setFilteredNoteList(noteList.filter(item => item.title.toLowerCase().includes(search.toLowerCase())))
