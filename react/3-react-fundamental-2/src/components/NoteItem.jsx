@@ -92,7 +92,7 @@ const NoteItem = (props) => {
             color='success'
             variant='contained'
             fullWidth
-            onClick={() => onArchiveButtonClick(id)}
+            onClick={() => onArchiveButtonClick(id, type === 'active' ? 'archive' : 'restore')}
           >
             {type === 'active' ? 'Archive' : 'Restore'}
           </Button>

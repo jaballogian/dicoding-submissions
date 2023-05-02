@@ -16,9 +16,11 @@ import Stack from '@mui/material/Stack'
 // SERVICES
 import { 
   addNote,
+  archiveNote,
   deleteNote,
   getActiveNotes, 
   getUserLogged, 
+  unarchiveNote,
 } from 'services/dicoding'
 
 // UTILITIES
@@ -96,15 +98,30 @@ const App = () => {
     setIsLoading(false)
   }
 
-  const onArchiveNoteHandler = (id) => {
-    setNoteList(current => {
-      return current.map(item => {
-        return {
-          ...item,
-          archived: item.id === id ? !item.archived : item.archived,
-        }
-      })
+  const onArchiveNoteHandler = async (id, command) => {
+    setIsLoading(true)
+
+    let response = {}
+    if (command === 'archive') {
+      response = await archiveNote(id)
+    }
+    else if (command === 'restore') {
+      response = await unarchiveNote(id)
+    }
+
+    let severity = 'error'
+    if (response.error === false) {
+      severity = 'success'
+      getActiveNotesData()
+    }
+
+    setSnackbar({
+      open: true,
+      severity,
+      message: response.message,
     })
+
+    setIsLoading(false)
   }
 
   const pageList = [
