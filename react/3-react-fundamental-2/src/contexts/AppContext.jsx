@@ -1,7 +1,10 @@
 import { createContext, useState } from 'react'
 
 // UTILITIES
-import { readAccessTokenFromLocalStorage } from 'utilities/localStorage'
+import { 
+  readAccessTokenFromLocalStorage, 
+  readThemeFromLocalStorage,
+} from 'utilities/localStorage'
 
 const AppContext = createContext()
 
@@ -14,7 +17,7 @@ const AppContextProvider = (props) => {
     severity: 'success',
     message: '',
   })
-  const [ theme, setTheme ] = useState('dark')
+  const [ theme, setTheme ] = useState(readThemeFromLocalStorage())
   const [ user, setUser ] = useState(null)
 
   return (
