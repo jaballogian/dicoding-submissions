@@ -98,7 +98,7 @@ const App = () => {
     {
       path: '/detail/:id',
       type: 'private',
-      element: <NoteDetail filteredNoteList={filteredNoteList}/>,
+      element: <NoteDetail/>,
     },
     {
       path: '/add-new',

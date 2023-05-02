@@ -107,10 +107,10 @@ async function getNote(id) {
   const responseJson = await response.json()
 
   if (responseJson.status !== 'success') {
-    return { error: true, data: null }
+    return { error: true, message: responseJson.message, data: null }
   }
 
-  return { error: false, data: responseJson.data }
+  return { error: false, message: responseJson.message, data: responseJson.data }
 }
 
 async function archiveNote(id) {

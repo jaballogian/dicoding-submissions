@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types'
+import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
 // MUIS
@@ -8,17 +8,28 @@ import Typography from '@mui/material/Typography'
 // PAGES
 import Error from 'pages/Error'
 
+// SERVICES
+import { getNote } from 'services/dicoding'
+
 // UTILITIES
 import { showFormattedDate } from 'utilities/data'
 
-const NoteDetail = (props) => {
-  const { filteredNoteList } = props
-
+const NoteDetail = () => {
   const { id } = useParams()
 
-  const selectedNote = filteredNoteList.find(item => item.id === id || item.id === Number(id))
+  const [ noteDetail, setNoteDetail ] = useState(null)
 
-  if (selectedNote) return (
+  const getNoteDetail = async () => {
+    const response = await getNote(id)
+    
+    if (response.error === false) setNoteDetail(response.data)
+  }
+
+  useEffect(() => {
+    getNoteDetail()
+  }, [id])
+  
+  if (noteDetail) return (
     <Stack padding={40}>
       {/* TITLE */}
       <Typography
@@ -28,7 +39,7 @@ const NoteDetail = (props) => {
         color='text.primary'
         marginBottom={12}
       >
-        {selectedNote.title}
+        {noteDetail.title}
       </Typography>
 
       {/* CREATED AT */}
@@ -37,7 +48,7 @@ const NoteDetail = (props) => {
         color='text.secondary'
         marginBottom={24}
       >
-        {showFormattedDate(selectedNote.createdAt)}
+        {showFormattedDate(noteDetail.createdAt)}
       </Typography>
 
       {/* BODY */}
@@ -46,7 +57,7 @@ const NoteDetail = (props) => {
         color='text.primary'
         marginBottom={24}
       >
-        {selectedNote.body}
+        {noteDetail.body}
       </Typography>
     </Stack>
   )
@@ -56,14 +67,6 @@ const NoteDetail = (props) => {
       message='Sorry, we could not find the note'
     />
   )
-}
-
-NoteDetail.defaultProps = {
-  filteredNoteList: [],
-}
-
-NoteDetail.propTypes = {
-  filteredNoteList: PropTypes.array.isRequired,
 }
 
 export default NoteDetail
