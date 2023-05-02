@@ -14,7 +14,10 @@ import LayoutMain from 'layouts/Main'
 import Stack from '@mui/material/Stack'
 
 // SERVICES
-import { getUserLogged } from 'services/dicoding'
+import { 
+  getActiveNotes, 
+  getUserLogged, 
+} from 'services/dicoding'
 
 // UTILITIES
 import { getInitialData } from 'utilities/data'
@@ -148,6 +151,18 @@ const App = () => {
       setUser(response.data)
     }
   }
+
+  const getActiveNotesData = async () => {
+    const response = await getActiveNotes()
+    
+    if (response.error === false) {
+      setNoteList(response.data)
+    }
+  }
+
+  useEffect(() => {
+    getActiveNotesData()
+  }, [])
 
   useEffect(() => {
     setFilteredNoteList(noteList.filter(item => item.title.toLowerCase().includes(search.toLowerCase())))
