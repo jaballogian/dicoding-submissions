@@ -16,6 +16,7 @@ import Stack from '@mui/material/Stack'
 // SERVICES
 import { 
   addNote,
+  deleteNote,
   getActiveNotes, 
   getUserLogged, 
 } from 'services/dicoding'
@@ -65,10 +66,14 @@ const App = () => {
     setIsLoading(false)
   }
 
-  const onDeleteNoteHandler = (id) => {   
-    setNoteList(current => {
-      return current.filter(item => item.id !== id)
-    })
+  const onDeleteNoteHandler = async (id) => {
+    setIsLoading(true)
+
+    const response = await deleteNote(id)
+
+    if (response.error === false) getActiveNotesData()
+
+    setIsLoading(false)
   }
 
   const onArchiveNoteHandler = (id) => {
