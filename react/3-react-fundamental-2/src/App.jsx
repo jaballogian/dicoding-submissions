@@ -25,7 +25,6 @@ import {
 } from 'services/dicoding'
 
 // UTILITIES
-import { getInitialData } from 'utilities/data'
 import { readAccessTokenFromLocalStorage } from 'utilities/localStorage'
 
 // PAGES
@@ -43,8 +42,8 @@ const App = () => {
   } = useContext(AppContext)
 
   const [ search, setSearch ] = useState('')
-  const [ noteList, setNoteList ] = useState(getInitialData())
-  const [ filteredNoteList, setFilteredNoteList ] = useState(getInitialData())
+  const [ noteList, setNoteList ] = useState([])
+  const [ filteredNoteList, setFilteredNoteList ] = useState([])
   const [ user, setUser ] = useState(null)
 
   const accessToken = readAccessTokenFromLocalStorage()
