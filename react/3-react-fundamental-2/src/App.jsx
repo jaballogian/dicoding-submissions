@@ -61,7 +61,17 @@ const App = () => {
 
     const response = await addNote({ title, body })
     
-    if (response.error === false) getActiveNotesData()
+    let severity = 'error'
+    if (response.error === false) {
+      severity = 'success'
+      getActiveNotesData()
+    }
+
+    setSnackbar({
+      open: true,
+      severity,
+      message: response.message,
+    })
 
     setIsLoading(false)
   }
@@ -71,7 +81,17 @@ const App = () => {
 
     const response = await deleteNote(id)
 
-    if (response.error === false) getActiveNotesData()
+    let severity = 'error'
+    if (response.error === false) {
+      severity = 'success'
+      getActiveNotesData()
+    }
+
+    setSnackbar({
+      open: true,
+      severity,
+      message: response.message,
+    })
 
     setIsLoading(false)
   }
