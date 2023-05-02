@@ -19,6 +19,7 @@ import {
   archiveNote,
   deleteNote,
   getActiveNotes, 
+  getArchivedNotes,
   getUserLogged, 
   unarchiveNote,
 } from 'services/dicoding'
@@ -48,12 +49,18 @@ const App = () => {
 
   const accessToken = readAccessTokenFromLocalStorage()
 
-  const getActiveNotesData = async () => {
+  const getAllNotesData = async () => {
     setIsLoading(true)
 
-    const response = await getActiveNotes()
+    const responseActiveNotes = await getActiveNotes()
+    const responseArchivedNotes = await getArchivedNotes()
     
-    if (response.error === false) setNoteList(response.data)
+    if (responseActiveNotes.error === false && responseArchivedNotes.error === false) {
+      setNoteList([ 
+        ...responseActiveNotes.data, 
+        ...responseArchivedNotes.data, 
+      ])
+    }
 
     setIsLoading(false)
   }
@@ -66,7 +73,7 @@ const App = () => {
     let severity = 'error'
     if (response.error === false) {
       severity = 'success'
-      getActiveNotesData()
+      getAllNotesData()
     }
     
     setIsLoading(false)
@@ -85,7 +92,7 @@ const App = () => {
     let severity = 'error'
     if (response.error === false) {
       severity = 'success'
-      getActiveNotesData()
+      getAllNotesData()
     }
 
     setIsLoading(false)
@@ -110,7 +117,7 @@ const App = () => {
     let severity = 'error'
     if (response.error === false) {
       severity = 'success'
-      getActiveNotesData()
+      getAllNotesData()
     }
 
     setIsLoading(false)
@@ -203,7 +210,7 @@ const App = () => {
   }
 
   useEffect(() => {
-    getActiveNotesData()
+    getAllNotesData()
   }, [])
 
   useEffect(() => {
