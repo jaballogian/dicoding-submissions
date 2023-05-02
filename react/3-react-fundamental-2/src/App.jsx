@@ -33,7 +33,10 @@ const SignIn = lazy(() => import('pages/SignIn'))
 const SignUp = lazy(() => import('pages/SignUp'))
 
 const App = () => {
-  const { snackbar, setSnackbar } = useContext(AppContext)
+  const { 
+    setIsLoading,
+    snackbar, setSnackbar, 
+  } = useContext(AppContext)
 
   const [ search, setSearch ] = useState('')
   const [ noteList, setNoteList ] = useState(getInitialData())
@@ -43,15 +46,23 @@ const App = () => {
   const accessToken = readAccessTokenFromLocalStorage()
 
   const getActiveNotesData = async () => {
+    setIsLoading(true)
+
     const response = await getActiveNotes()
     
     if (response.error === false) setNoteList(response.data)
+
+    setIsLoading(false)
   }
 
   const onAddNewNoteHandler = async ({ title, body }) => {
+    setIsLoading(true)
+
     const response = await addNote({ title, body })
     
     if (response.error === false) getActiveNotesData()
+
+    setIsLoading(false)
   }
 
   const onDeleteNoteHandler = (id) => {   
@@ -143,11 +154,13 @@ const App = () => {
   }
 
   const updateUserInformation = async () => {
+    setIsLoading(true)
+
     const response = await getUserLogged()
     
-    if (response.error === false) {
-      setUser(response.data)
-    }
+    if (response.error === false) setUser(response.data)
+
+    setIsLoading(false)
   }
 
   useEffect(() => {

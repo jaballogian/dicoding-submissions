@@ -1,5 +1,8 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { useParams } from 'react-router-dom'
+
+// CONTEXTS
+import { AppContext } from 'contexts/AppContext'
 
 // MUIS
 import Stack from '@mui/material/Stack'
@@ -15,14 +18,20 @@ import { getNote } from 'services/dicoding'
 import { showFormattedDate } from 'utilities/data'
 
 const NoteDetail = () => {
+  const { setIsLoading } = useContext(AppContext)
+
   const { id } = useParams()
 
   const [ noteDetail, setNoteDetail ] = useState(null)
 
   const getNoteDetail = async () => {
+    setIsLoading(true)
+
     const response = await getNote(id)
     
     if (response.error === false) setNoteDetail(response.data)
+
+    setIsLoading(false)
   }
 
   useEffect(() => {
