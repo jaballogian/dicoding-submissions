@@ -14,14 +14,19 @@ import Link from '@mui/material/Link'
 import OutlinedInput from '@mui/material/OutlinedInput'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
-import { alpha, useTheme } from '@mui/material/styles'
+import { alpha } from '@mui/material/styles'
 
 // MUI ICONS
+import IconDarkMode from '@mui/icons-material/DarkMode'
 import IconExitToApp from '@mui/icons-material/ExitToApp'
+import IconLightMode from '@mui/icons-material/LightMode'
 import IconSearch from '@mui/icons-material/Search'
 
 // UTILITIES
-import { removeAccessTokenFromLocalStorage } from 'utilities/localStorage'
+import {
+  removeAccessTokenFromLocalStorage, 
+  setThemeToLocalStorage,
+} from 'utilities/localStorage'
 
 const Header = (props) => {
   const {
@@ -29,11 +34,12 @@ const Header = (props) => {
     onSearchChange,
   } = props
 
-  const { user, setUser } = useContext(AppContext)
+  const { 
+    theme, setTheme,
+    user, setUser, 
+  } = useContext(AppContext)
 
   const navigate = useNavigate()
-
-  const theme = useTheme()
 
   const [ search, setSearch ] = useState('')
   
@@ -46,6 +52,14 @@ const Header = (props) => {
   const onTitleClickHandler = (event) => {
     event.preventDefault()
     navigate('/')
+  }
+
+  const onSwitchThemeButtonClickHandler = () => {
+    setTheme(current => {
+      const newTheme = current === 'light' ? 'dark' : 'light'
+      setThemeToLocalStorage(newTheme)
+      return newTheme
+    })
   }
 
   const signOutUser = () => {
@@ -78,28 +92,41 @@ const Header = (props) => {
 
         {/* SEARCH INPUT */}
         {isWithSearch &&
-        <FormControl>
+        <FormControl sx={{ marginRight: 20 }}>
           <OutlinedInput 
             placeholder='Search a title note here'
             name='search'
             startAdornment={
               <InputAdornment position='start'>
-                <IconSearch sx={(theme) => ({
-                  color: theme.palette.common.white,
+                <IconSearch sx={(muiTheme) => ({
+                  color: muiTheme.palette.common.white,
                 })}/>
               </InputAdornment>
             }
-            sx={(theme) => ({
+            sx={(muiTheme) => ({
               height: 44,
               '& fieldset': {
                 border: 'none',
               },
-              backgroundColor: alpha(theme.palette.common.white, 0.16),
+              backgroundColor: alpha(muiTheme.palette.common.white, 0.16),
             })}
             value={search}
             onChange={onSearchChangeHandler}
           />
         </FormControl>}
+
+        {/* CHANGE THEME BUTTON */}
+        <IconButton onClick={onSwitchThemeButtonClickHandler}>
+          {theme === 'dark' ? (
+            <IconLightMode sx={(muiTheme) => ({
+              color: muiTheme.palette.text.primary,
+            })}/>
+          ) : (
+            <IconDarkMode sx={(muiTheme) => ({
+              color: muiTheme.palette.text.primary,
+            })}/>
+          )}
+        </IconButton>
 
         {/* NAME */}
         <Typography 
@@ -112,7 +139,9 @@ const Header = (props) => {
         {/* LOGOUT BUTTON */}
         {user &&
         <IconButton onClick={() => signOutUser()}>
-          <IconExitToApp sx={{ color: `${theme.palette.text.primary} !important` }}/>
+          <IconExitToApp sx={(muiTheme) => ({
+            color: muiTheme.palette.text.primary,
+          })}/>
         </IconButton>}
       </Toolbar>
     </AppBar>
