@@ -68,14 +68,13 @@ const App = () => {
       severity = 'success'
       getActiveNotesData()
     }
-
+    
+    setIsLoading(false)
     setSnackbar({
       open: true,
       severity,
       message: response.message,
     })
-
-    setIsLoading(false)
   }
 
   const onDeleteNoteHandler = async (id) => {
@@ -89,13 +88,12 @@ const App = () => {
       getActiveNotesData()
     }
 
+    setIsLoading(false)
     setSnackbar({
       open: true,
       severity,
       message: response.message,
     })
-
-    setIsLoading(false)
   }
 
   const onArchiveNoteHandler = async (id, command) => {
@@ -115,13 +113,12 @@ const App = () => {
       getActiveNotesData()
     }
 
+    setIsLoading(false)
     setSnackbar({
       open: true,
       severity,
       message: response.message,
     })
-
-    setIsLoading(false)
   }
 
   const pageList = [
