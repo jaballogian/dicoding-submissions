@@ -4,14 +4,12 @@ import { BrowserRouter } from 'react-router-dom'
 // COMPONENTS
 import App from './App'
 
-// CONSTANTS
-import customTheme from 'constants/theme'
-
 // CONTEXTS
 import { AppContextProvider } from 'contexts/AppContext'
 
 // MUIS
 import { 
+  createTheme,
   StyledEngineProvider, 
   ThemeProvider, 
 } from '@mui/material/styles'
@@ -21,7 +19,7 @@ import './index.css'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
-  <ThemeProvider theme={customTheme}>
+  <ThemeProvider theme={createTheme({})}>
     <StyledEngineProvider injectFirst>
       <AppContextProvider>
         <BrowserRouter>

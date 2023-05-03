@@ -1,4 +1,17 @@
-import { createContext, useState } from 'react'
+import { createContext, useState, useEffect } from 'react'
+
+// CONSTANTS
+import { 
+  paletteDark, 
+  paletteLight, 
+} from 'constants/colors'
+import initialThemeObject from 'constants/theme'
+
+// MUIS
+import { 
+  createTheme, 
+  ThemeProvider,
+} from '@mui/material/styles'
 
 // UTILITIES
 import { 
@@ -17,8 +30,24 @@ const AppContextProvider = (props) => {
     severity: 'success',
     message: '',
   })
-  const [ theme, setTheme ] = useState(readThemeFromLocalStorage())
+  const [ theme, setTheme ] = useState(() => readThemeFromLocalStorage())
+  const [ themeObject, setThemeObject ] = useState(initialThemeObject)
   const [ user, setUser ] = useState(null)
+
+  const isLightTheme = theme === 'light'
+
+  useEffect(() => {
+    setThemeObject(current => {
+      return createTheme(current, {
+        palette: {
+          // mode: theme,
+          text: isLightTheme ? paletteLight.text : paletteDark.text,
+          divider: isLightTheme ? paletteLight.divider : paletteDark.divider,
+          background: isLightTheme ? paletteLight.background : paletteDark.background,
+        },
+      })
+    })
+  }, [theme])
 
   return (
     <AppContext.Provider
@@ -31,7 +60,9 @@ const AppContextProvider = (props) => {
         user, setUser,
       }}
     >
-      {props.children}
+      <ThemeProvider theme={themeObject}>
+        {props.children}
+      </ThemeProvider>
     </AppContext.Provider>
   )
 }
