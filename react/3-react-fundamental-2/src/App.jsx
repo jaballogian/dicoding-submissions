@@ -209,7 +209,7 @@ const App = () => {
   }
 
   useEffect(() => {
-    getAllNotesData()
+    user && getAllNotesData()
   }, [user])
 
   useEffect(() => {
