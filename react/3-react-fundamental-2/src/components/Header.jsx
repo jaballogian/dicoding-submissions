@@ -1,6 +1,6 @@
 import { useState, useContext } from 'react'
 import PropTypes from 'prop-types'
-import { useNavigate } from 'react-router-dom'
+// import { useNavigate } from 'react-router-dom'
 
 // CONSTANTS
 import { white } from 'constants/colors'
@@ -42,7 +42,7 @@ const Header = (props) => {
     user, setUser, 
   } = useContext(AppContext)
 
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
 
   const [ search, setSearch ] = useState('')
   
@@ -52,10 +52,10 @@ const Header = (props) => {
     onSearchChange(event.target.value)
   }
 
-  const onTitleClickHandler = (event) => {
-    event.preventDefault()
-    navigate('/')
-  }
+  // const onTitleClickHandler = (event) => {
+  //   event.preventDefault()
+  //   navigate('/')
+  // }
 
   const onSwitchThemeButtonClickHandler = () => {
     setTheme(current => {
@@ -66,8 +66,8 @@ const Header = (props) => {
   }
 
   const signOutUser = () => {
-    setUser(null)
     removeAccessTokenFromLocalStorage()
+    setUser(null)
   }
 
   return (
@@ -81,7 +81,7 @@ const Header = (props) => {
           href='/'
           color={white}
           underline='none'
-          onClick={onTitleClickHandler}
+          // onClick={onTitleClickHandler} // NOTE: COMMENTED TO PREVENT UNEXPEDTED LOADING
           marginRight='auto'
         >
           <Typography
@@ -126,16 +126,17 @@ const Header = (props) => {
         </IconButton>
 
         {/* NAME */}
+        {user?.name &&
         <Typography 
           component='p'
           margin='0px 20px'
         >
           {user?.name}
-        </Typography>
+        </Typography>}
 
         {/* LOGOUT BUTTON */}
         {user &&
-        <IconButton onClick={() => signOutUser()}>
+        <IconButton onClick={signOutUser}>
           <IconExitToApp sx={{ color: white }}/>
         </IconButton>}
       </Toolbar>

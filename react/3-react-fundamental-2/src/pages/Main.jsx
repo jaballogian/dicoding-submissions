@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { useNavigate } from 'react-router-dom'
+// import { useNavigate } from 'react-router-dom'
 
 // COMPONENTS
 import NoteList from 'components/NoteList'
@@ -19,12 +19,12 @@ const Main = (props) => {
     onArchiveNote,
   } = props
 
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
 
-  const onFabClickHandler = (event) => {
-    event.preventDefault()
-    navigate('/add-new')
-  }
+  // const onFabClickHandler = (event) => {
+  //   event.preventDefault()
+  //   navigate('/add-new')
+  // }
 
   return (
     <>
@@ -55,7 +55,7 @@ const Main = (props) => {
         <Fab
           href='/add-new'
           color='primary'
-          onClick={onFabClickHandler}
+          // onClick={onFabClickHandler} // NOTE: COMMENTED TO PREVENT UNEXPEDTED LOADING
           sx={{
             position: 'fixed',
             bottom: 40,
