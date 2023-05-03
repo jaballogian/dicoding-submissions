@@ -1,8 +1,8 @@
 import { grey } from '@mui/material/colors'
 import { alpha } from '@mui/material/styles'
 
-const black = '#000000'
-const white = '#FFFFFF'
+export const black = '#000000'
+export const white = '#FFFFFF'
 
 export const paletteDark = {
   divider: alpha(white, 0.12),

@@ -2,6 +2,9 @@ import { useState, useContext } from 'react'
 import PropTypes from 'prop-types'
 import { useNavigate } from 'react-router-dom'
 
+// CONSTANTS
+import { white } from 'constants/colors'
+
 // CONTEXTS
 import { AppContext } from 'contexts/AppContext'
 
@@ -76,7 +79,7 @@ const Header = (props) => {
         {/* TITLE */}
         <Link 
           href='/'
-          color='text.primary'
+          color={white}
           underline='none'
           onClick={onTitleClickHandler}
           marginRight='auto'
@@ -98,18 +101,16 @@ const Header = (props) => {
             name='search'
             startAdornment={
               <InputAdornment position='start'>
-                <IconSearch sx={(muiTheme) => ({
-                  color: muiTheme.palette.common.white,
-                })}/>
+                <IconSearch sx={{ color: white }}/>
               </InputAdornment>
             }
-            sx={(muiTheme) => ({
+            sx={{
               height: 44,
               '& fieldset': {
                 border: 'none',
               },
-              backgroundColor: alpha(muiTheme.palette.common.white, 0.16),
-            })}
+              backgroundColor: alpha(white, 0.16),
+            }}
             value={search}
             onChange={onSearchChangeHandler}
           />
@@ -118,13 +119,9 @@ const Header = (props) => {
         {/* CHANGE THEME BUTTON */}
         <IconButton onClick={onSwitchThemeButtonClickHandler}>
           {theme === 'dark' ? (
-            <IconLightMode sx={(muiTheme) => ({
-              color: muiTheme.palette.text.primary,
-            })}/>
+            <IconLightMode sx={{ color: white }}/>
           ) : (
-            <IconDarkMode sx={(muiTheme) => ({
-              color: muiTheme.palette.text.primary,
-            })}/>
+            <IconDarkMode sx={{ color: white }}/>
           )}
         </IconButton>
 
@@ -139,9 +136,7 @@ const Header = (props) => {
         {/* LOGOUT BUTTON */}
         {user &&
         <IconButton onClick={() => signOutUser()}>
-          <IconExitToApp sx={(muiTheme) => ({
-            color: muiTheme.palette.text.primary,
-          })}/>
+          <IconExitToApp sx={{ color: white }}/>
         </IconButton>}
       </Toolbar>
     </AppBar>
