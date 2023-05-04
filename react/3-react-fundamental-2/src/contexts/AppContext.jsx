@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
 
 // CONSTANTS
 import { 
@@ -65,6 +66,12 @@ const AppContextProvider = (props) => {
       </ThemeProvider>
     </AppContext.Provider>
   )
+}
+
+AppContextProvider.defaultProps = {}
+
+AppContextProvider.propTypes = {
+  children: PropTypes.node.isRequired,
 }
 
 export { AppContextProvider, AppContext }
