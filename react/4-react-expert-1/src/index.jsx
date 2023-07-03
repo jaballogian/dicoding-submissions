@@ -1,12 +1,30 @@
 /* eslint linebreak-style: ["error", "windows"] */
+// MUIS
+import {
+  StyledEngineProvider,
+  ThemeProvider,
+} from '@mui/material/styles';
+
+// REACT
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
+
+// CONSTANTS
+import customTheme from './constants/theme';
+
+// COMPONENTS
 import App from './App';
+
+// STYLES
+import './index.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <ThemeProvider theme={customTheme}>
+      <StyledEngineProvider injectFirst>
+        <App />
+      </StyledEngineProvider>
+    </ThemeProvider>
   </React.StrictMode>,
 );
