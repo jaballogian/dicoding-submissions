@@ -4,6 +4,9 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 // MUIS
 import Stack from '@mui/material/Stack';
 
+// LAYOUTS
+import LayoutMain from './layouts/Main';
+
 // PAGES
 const Error = lazy(() => import('./pages/Error'));
 const Home = lazy(() => import('./pages/Home'));
@@ -72,7 +75,11 @@ function App() {
           <Route
             key={item.path}
             path={item.path}
-            element={getRouteComponent(item)}
+            element={(
+              <LayoutMain>
+                {getRouteComponent(item)}
+              </LayoutMain>
+            )}
           />
         ))}
       </Routes>
