@@ -11,6 +11,7 @@ import LayoutMain from './layouts/Main';
 const Error = lazy(() => import('./pages/Error'));
 const Home = lazy(() => import('./pages/Home'));
 const SignIn = lazy(() => import('./pages/SignIn'));
+const SignUp = lazy(() => import('./pages/SignUp'));
 
 const pageList = [
   // AUTHENTICATION PAGES
@@ -18,6 +19,11 @@ const pageList = [
     path: '/sign-in',
     type: 'authentication',
     element: <SignIn />,
+  },
+  {
+    path: '/sign-up',
+    type: 'authentication',
+    element: <SignUp />,
   },
   // PRIVATE PAGES
   {
