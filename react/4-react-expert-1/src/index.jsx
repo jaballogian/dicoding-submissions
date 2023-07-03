@@ -8,6 +8,7 @@ import {
 // REACT
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
 
 // CONSTANTS
 import customTheme from './constants/theme';
@@ -23,7 +24,9 @@ root.render(
   <React.StrictMode>
     <ThemeProvider theme={customTheme}>
       <StyledEngineProvider injectFirst>
-        <App />
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
       </StyledEngineProvider>
     </ThemeProvider>
   </React.StrictMode>,
