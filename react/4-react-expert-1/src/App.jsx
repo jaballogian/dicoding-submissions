@@ -5,9 +5,9 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import Stack from '@mui/material/Stack';
 
 // PAGES
-const Error = lazy(() => import('./pages/Error/Error'));
-const Home = lazy(() => import('./pages/Home/Home'));
-const SignIn = lazy(() => import('./pages/SignIn/SignIn'));
+const Error = lazy(() => import('./pages/Error'));
+const Home = lazy(() => import('./pages/Home'));
+const SignIn = lazy(() => import('./pages/SignIn'));
 
 const pageList = [
   // AUTHENTICATION PAGES
