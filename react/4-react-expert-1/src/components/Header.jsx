@@ -6,6 +6,7 @@ import AppBar from '@mui/material/AppBar';
 import IconButton from '@mui/material/IconButton';
 import Link from '@mui/material/Link';
 import Toolbar from '@mui/material/Toolbar';
+import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 
 // MUI ICONS
@@ -55,11 +56,15 @@ function Header() {
         )}
 
         {/* LOGOUT BUTTON */}
-        {user
-        && (
-        <IconButton onClick={signOutUser}>
-          <IconExitToApp sx={{ color: white }} />
-        </IconButton>
+        {user && (
+        <Tooltip
+          title="Sign Out"
+          placement="bottom"
+        >
+          <IconButton onClick={signOutUser}>
+            <IconExitToApp sx={{ color: white }} />
+          </IconButton>
+        </Tooltip>
         )}
       </Toolbar>
     </AppBar>
