@@ -20,7 +20,12 @@ function Main(props) {
       <Header />
 
       {/* CHILDREN */}
-      {children}
+      <Stack
+        maxWidth="100%"
+        padding={24}
+      >
+        {children}
+      </Stack>
     </Stack>
   );
 }
