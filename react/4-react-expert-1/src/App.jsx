@@ -12,6 +12,7 @@ const Error = lazy(() => import('./pages/Error'));
 const Home = lazy(() => import('./pages/Home'));
 const SignIn = lazy(() => import('./pages/SignIn'));
 const SignUp = lazy(() => import('./pages/SignUp'));
+const ThreadDetail = lazy(() => import('./pages/ThreadDetail'));
 
 const pageList = [
   // AUTHENTICATION PAGES
@@ -30,6 +31,11 @@ const pageList = [
     path: '/',
     type: 'private',
     element: <Home />,
+  },
+  {
+    path: '/thread/:threadId',
+    type: 'private',
+    element: <ThreadDetail />,
   },
   // FREE PAGES
   {
