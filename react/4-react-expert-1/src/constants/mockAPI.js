@@ -37,6 +37,45 @@ export const dummyThreadList = [
   },
 ];
 
+export const dummyCommentList = [
+  {
+    id: 'comment-XhqYiuyhZm1mWHqn',
+    content: 'Halo!<br>Perkanalkan, nama saya Dimas.',
+    createdAt: '2023-05-29T07:59:04.689Z',
+    owner: {
+      id: 'user-mQhLzINW_w5TxxYf',
+      name: 'Dimas Saputra',
+      avatar: 'https://ui-avatars.com/api/?name=Dimas Saputra&background=random',
+    },
+    upVotesBy: [],
+    downVotesBy: [],
+  },
+  {
+    id: 'comment-XhqYiuyhZm1mWHqn',
+    content: 'Halo!<br>Perkanalkan, nama saya Dimas.',
+    createdAt: '2023-05-29T07:59:04.689Z',
+    owner: {
+      id: 'user-mQhLzINW_w5TxxYf',
+      name: 'Dimas Saputra',
+      avatar: 'https://ui-avatars.com/api/?name=Dimas Saputra&background=random',
+    },
+    upVotesBy: [],
+    downVotesBy: [],
+  },
+  {
+    id: 'comment-XhqYiuyhZm1mWHqn',
+    content: 'Halo!<br>Perkanalkan, nama saya Dimas.',
+    createdAt: '2023-05-29T07:59:04.689Z',
+    owner: {
+      id: 'user-mQhLzINW_w5TxxYf',
+      name: 'Dimas Saputra',
+      avatar: 'https://ui-avatars.com/api/?name=Dimas Saputra&background=random',
+    },
+    upVotesBy: [],
+    downVotesBy: [],
+  },
+];
+
 export const dummyUserList = [
   {
     id: 'user-aROWej8yYA1sOfHN',
