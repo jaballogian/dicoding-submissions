@@ -8,6 +8,7 @@ import moment from 'moment';
 
 // MUIS
 import Avatar from '@mui/material/Avatar';
+import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -43,9 +44,7 @@ function ThreadItem(props) {
             title="Open"
             placement="bottom"
           >
-            <Link
-              href={`/thread/${id}`}
-            >
+            <Link href={`/thread/${id}`}>
               <IconButton>
                 <IconOpenInNew />
               </IconButton>
@@ -67,17 +66,15 @@ function ThreadItem(props) {
         </Typography>
 
         {/* BODY */}
-        <Typography
-          variant="body2"
+        <Box
           display="-webkit-box"
           overflow="hidden"
           sx={{
             WebkitBoxOrient: 'vertical',
-            WebkitLineClamp: 3,
+            WebkitLineClamp: 4,
           }}
-        >
-          {body}
-        </Typography>
+          dangerouslySetInnerHTML={{ __html: body }}
+        />
       </CardContent>
 
       {/* ACTIONS */}
