@@ -2,8 +2,12 @@
 import React from 'react';
 
 // MUIS
+import Fab from '@mui/material/Fab';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
+
+// MUI ICONS
+import IconAdd from '@mui/icons-material/Add';
 
 // COMPONENTS
 import ThreadItem from '../components/ThreadItem';
@@ -25,6 +29,7 @@ function Home() {
       width="100%"
       maxWidth={1200}
       alignSelf="center"
+      position="relative"
     >
       {/* TITLE */}
       <Typography
@@ -58,6 +63,19 @@ function Home() {
           ))}
         </Stack>
       )}
+
+      {/* CREATE A NEW THREAD FAB */}
+      <Fab
+        color="primary"
+        href="/create-new-thread"
+        sx={{
+          position: 'fixed',
+          bottom: 40,
+          right: 40,
+        }}
+      >
+        <IconAdd />
+      </Fab>
     </Stack>
   );
 }
