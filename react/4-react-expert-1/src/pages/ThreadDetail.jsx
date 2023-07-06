@@ -59,7 +59,7 @@ function ThreadDetail() {
       />
 
       {/* CONTENT */}
-      <CardContent>
+      <CardContent sx={{ paddingBottom: '0px !important' }}>
         {/* TITLE */}
         <Typography
           variant="h6"
@@ -118,26 +118,37 @@ function ThreadDetail() {
           )
         </Typography>
 
-        {/* COMMENTS */}
-        <Stack
-          marginTop={24}
-          divider={(
-            <Divider
-              orientation="horizontal"
-              flexItem
-            />
-          )}
-        >
-          {dummyCommentList.map((item) => (
-            <CommentItem
-              key={item.id}
-              avatar={item.owner.avatar}
-              name={item.owner.name}
-              createdTime={item.createdAt}
-              content={item.content}
-            />
-          ))}
-        </Stack>
+        {dummyCommentList.length > 0 ? (
+          // COMMENTS
+          <Stack
+            marginTop={12}
+            divider={(
+              <Divider
+                orientation="horizontal"
+                flexItem
+              />
+            )}
+          >
+            {dummyCommentList.map((item) => (
+              <CommentItem
+                key={item.id}
+                avatar={item.owner.avatar}
+                name={item.owner.name}
+                createdTime={item.createdAt}
+                content={item.content}
+              />
+            ))}
+          </Stack>
+        ) : (
+          // NO COMMENTS TEXT
+          <Typography
+            color="text.secondary"
+            marginTop={16}
+            marginBottom={24}
+          >
+            No comments yet
+          </Typography>
+        )}
       </CardContent>
     </Card>
   );
