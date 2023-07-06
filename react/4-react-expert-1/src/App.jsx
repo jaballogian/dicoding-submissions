@@ -8,6 +8,7 @@ import Stack from '@mui/material/Stack';
 import LayoutMain from './layouts/Main';
 
 // PAGES
+const CreateNewThread = lazy(() => import('./pages/CreateNewThread'));
 const Error = lazy(() => import('./pages/Error'));
 const Home = lazy(() => import('./pages/Home'));
 const SignIn = lazy(() => import('./pages/SignIn'));
@@ -37,6 +38,11 @@ const pageList = [
     type: 'private',
     element: <ThreadDetail />,
   },
+  {
+    path: '/create-new-thread',
+    type: 'private',
+    element: <CreateNewThread />,
+  },
   // FREE PAGES
   {
     path: '*',
@@ -46,6 +52,7 @@ const pageList = [
 ];
 
 function App() {
+  // const accessToken = { name: 'dummy name' };
   const accessToken = null;
 
   const getRouteComponent = (route) => {
