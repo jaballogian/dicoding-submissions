@@ -3,7 +3,7 @@ import React from 'react';
 
 // DATE AND TIME
 // eslint-disable-next-line import/no-extraneous-dependencies
-import moment from 'moment';
+// import moment from 'moment';
 
 // MUIS
 import Avatar from '@mui/material/Avatar';
@@ -12,20 +12,28 @@ import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
+import Divider from '@mui/material/Divider';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
+// COMPONENTS
+import CommentItem from '../components/CommentItem';
+
 // CONSTANTS
 import {
+  dummyCommentList,
   dummyThreadList,
   dummyUserList,
 } from '../constants/mockAPI';
 
 // HOOKS
 import useInput from '../hooks/useInput';
+
+// UTILITIES
+import convertDate from '../utilities/date';
 
 function ThreadDetail() {
   const combinedThreadAndUserLists = dummyThreadList.map((thread) => ({
@@ -47,7 +55,7 @@ function ThreadDetail() {
       <CardHeader
         avatar={(<Avatar src={threadDetail.user.avatar} />)}
         title={threadDetail.user.name}
-        subheader={moment(threadDetail.createdAt).fromNow()}
+        subheader={convertDate(threadDetail.createdAt)}
       />
 
       {/* CONTENT */}
@@ -66,7 +74,7 @@ function ThreadDetail() {
 
         {/* COMMENT FORM */}
         <Stack
-          marginTop={40}
+          margin="40px 0px"
           spacing={16}
           width="100%"
           component="form"
@@ -98,6 +106,37 @@ function ThreadDetail() {
           >
             Submit
           </Button>
+        </Stack>
+
+        {/* COMMENTS TEXT */}
+        <Typography
+          fontWeight={600}
+          color="text.primary"
+        >
+          Comments (
+          {dummyCommentList.length}
+          )
+        </Typography>
+
+        {/* COMMENTS */}
+        <Stack
+          marginTop={24}
+          divider={(
+            <Divider
+              orientation="horizontal"
+              flexItem
+            />
+          )}
+        >
+          {dummyCommentList.map((item) => (
+            <CommentItem
+              key={item.id}
+              avatar={item.owner.avatar}
+              name={item.owner.name}
+              createdTime={item.createdAt}
+              content={item.content}
+            />
+          ))}
         </Stack>
       </CardContent>
     </Card>
