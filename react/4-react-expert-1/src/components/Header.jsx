@@ -21,10 +21,16 @@ function Header() {
   const signOutUser = () => {};
 
   return (
-    <AppBar position="static">
+    <AppBar
+      position="static"
+      sx={{ padding: '0px 24px' }}
+    >
       <Toolbar sx={{
         margin: '0px 40px',
         alignItems: 'center',
+        alignSelf: 'center',
+        width: '100%',
+        maxWidth: 1200,
       }}
       >
         {/* TITLE */}
