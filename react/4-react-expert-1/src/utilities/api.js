@@ -45,10 +45,36 @@ const api = (() => {
     return user;
   }
 
+  async function loginUser({ email, password }) {
+    const response = await fetch(`${BASE_URL}/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    });
+
+    const responseJson = await response.json();
+
+    const { status, message } = responseJson;
+
+    if (status !== 'success') {
+      throw new Error(message);
+    }
+
+    const { data: { token } } = responseJson;
+
+    return token;
+  }
+
   return {
     putAccessToken,
     getAccessToken,
     registerUser,
+    loginUser,
   };
 })();
 export default api;
