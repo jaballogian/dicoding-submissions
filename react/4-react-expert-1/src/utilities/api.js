@@ -70,11 +70,28 @@ const api = (() => {
     return token;
   }
 
+  async function getOwnProfile() {
+    const response = await fetchWithAuth(`${BASE_URL}/users/me`);
+
+    const responseJson = await response.json();
+
+    const { status, message } = responseJson;
+
+    if (status !== 'success') {
+      throw new Error(message);
+    }
+
+    const { data: { user } } = responseJson;
+
+    return user;
+  }
+
   return {
     putAccessToken,
     getAccessToken,
     registerUser,
     loginUser,
+    getOwnProfile,
   };
 })();
 export default api;
