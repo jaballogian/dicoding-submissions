@@ -1,9 +1,6 @@
 /* eslint linebreak-style: ["error", "windows"] */
-import React from 'react';
-
-// DATE AND TIME
-// eslint-disable-next-line import/no-extraneous-dependencies
-// import moment from 'moment';
+import React, { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
 // MUIS
 import Avatar from '@mui/material/Avatar';
@@ -19,15 +16,14 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
+// REDUX
+import {
+  useDispatch,
+  useSelector,
+} from 'react-redux';
+
 // COMPONENTS
 import CommentItem from '../components/CommentItem';
-
-// CONSTANTS
-import {
-  dummyCommentList,
-  dummyThreadList,
-  dummyUserList,
-} from '../constants/mockAPI';
 
 // HOOKS
 import useInput from '../hooks/useInput';
@@ -35,14 +31,19 @@ import useInput from '../hooks/useInput';
 // UTILITIES
 import convertDate from '../utilities/date';
 
+// STATES
+import { asyncReceiveThreadDetail } from '../states/threadDetail/action';
+
 function ThreadDetail() {
-  const combinedThreadAndUserLists = dummyThreadList.map((thread) => ({
-    ...thread,
-    user: dummyUserList.find((user) => thread.ownerId === user.id),
-  }));
-  const threadDetail = combinedThreadAndUserLists[2];
+  const { threadId } = useParams();
+  const { threadDetail = null } = useSelector((states) => states);
+  const dispatch = useDispatch();
 
   const [inputComment, setInputComment] = useInput('');
+
+  useEffect(() => {
+    dispatch(asyncReceiveThreadDetail(threadId));
+  }, [threadId, dispatch]);
 
   return (
     <Card sx={{
@@ -53,9 +54,9 @@ function ThreadDetail() {
     >
       {/* HEADER */}
       <CardHeader
-        avatar={(<Avatar src={threadDetail.user.avatar} />)}
-        title={threadDetail.user.name}
-        subheader={convertDate(threadDetail.createdAt)}
+        avatar={(<Avatar src={threadDetail?.owner?.avatar} />)}
+        title={threadDetail?.owner?.name}
+        subheader={convertDate(threadDetail?.createdAt)}
       />
 
       {/* CONTENT */}
@@ -66,11 +67,11 @@ function ThreadDetail() {
           fontWeight={600}
           marginBottom={20}
         >
-          {threadDetail.title}
+          {threadDetail?.title}
         </Typography>
 
         {/* BODY */}
-        <Box dangerouslySetInnerHTML={{ __html: threadDetail.body }} />
+        <Box dangerouslySetInnerHTML={{ __html: threadDetail?.body }} />
 
         {/* COMMENT FORM */}
         <Stack
@@ -114,11 +115,11 @@ function ThreadDetail() {
           color="text.primary"
         >
           Comments (
-          {dummyCommentList.length}
+          {threadDetail?.comments?.length}
           )
         </Typography>
 
-        {dummyCommentList.length > 0 ? (
+        {threadDetail?.comments?.length > 0 ? (
           // COMMENTS
           <Stack
             marginTop={12}
@@ -129,7 +130,7 @@ function ThreadDetail() {
               />
             )}
           >
-            {dummyCommentList.map((item) => (
+            {threadDetail?.comments?.map((item) => (
               <CommentItem
                 key={item.id}
                 avatar={item.owner.avatar}
