@@ -1,5 +1,6 @@
 /* eslint linebreak-style: ["error", "windows"] */
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 // MUIS
 import Button from '@mui/material/Button';
@@ -16,8 +17,14 @@ import Typography from '@mui/material/Typography';
 import IconVisibility from '@mui/icons-material/Visibility';
 import IconVisibilityOff from '@mui/icons-material/VisibilityOff';
 
+// REDUXS
+import { useDispatch } from 'react-redux';
+
 // HOOKS
 import useInput from '../hooks/useInput';
+
+// STATES
+import { asyncRegisterUser } from '../states/users/action';
 
 function SignUp() {
   const [name, onNameChange] = useInput('');
@@ -26,8 +33,13 @@ function SignUp() {
 
   const [isPasswordShown, setIsPasswordShown] = useState(false);
 
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const submitFormHandler = (event) => {
     event.preventDefault();
+    dispatch(asyncRegisterUser({ name, email, password }));
+    navigate('/');
   };
 
   return (
