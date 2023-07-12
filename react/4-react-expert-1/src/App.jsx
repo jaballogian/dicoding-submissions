@@ -1,8 +1,6 @@
+/* eslint linebreak-style: ["error", "windows"] */
 import React, { Suspense, lazy, useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-
-// MUIS
-import Stack from '@mui/material/Stack';
 
 // REDUX
 import {
@@ -61,7 +59,10 @@ const pageList = [
 ];
 
 function App() {
-  const { authUser } = useSelector((states) => states);
+  const {
+    authUser,
+    isPreload,
+  } = useSelector((states) => states);
   const dispatch = useDispatch();
 
   const getRouteComponent = (route) => {
@@ -95,13 +96,12 @@ function App() {
     dispatch(asyncPreloadProcess());
   }, [dispatch]);
 
+  if (isPreload) {
+    return null;
+  }
+
   return (
-    <Suspense fallback={(
-      <Stack>
-        Loading
-      </Stack>
-    )}
-    >
+    <Suspense fallback={null}>
       {/* PAGES */}
       <Routes>
         {pageList.map((item) => (
