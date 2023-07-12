@@ -1,4 +1,5 @@
 /* eslint linebreak-style: ["error", "windows"] */
+// UTILITIES
 import api from '../../utilities/api';
 
 const ActionType = {

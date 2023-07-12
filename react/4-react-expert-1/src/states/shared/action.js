@@ -1,5 +1,8 @@
 /* eslint linebreak-style: ["error", "windows"] */
+// UTILITIES
 import api from '../../utilities/api';
+
+// STATES
 import { receiveThreadsActionCreator } from '../threads/action';
 import { receiveUsersActionCreator } from '../users/action';
 

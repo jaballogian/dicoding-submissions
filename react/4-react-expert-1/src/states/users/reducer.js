@@ -1,4 +1,5 @@
 /* eslint linebreak-style: ["error", "windows"] */
+// STATES
 import { ActionType } from './action';
 
 function usersReducer(users = [], action = {}) {
