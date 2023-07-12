@@ -1,5 +1,6 @@
 /* eslint linebreak-style: ["error", "windows"] */
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 // MUIS
 import Button from '@mui/material/Button';
@@ -9,12 +10,27 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
+// REDUX
+import { useDispatch } from 'react-redux';
+
 // HOOKS
 import useInput from '../hooks/useInput';
 
+// STATES
+import { asyncAddThread } from '../states/threads/action';
+
 function CreateNewThread() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const [title, setTitle] = useInput('');
   const [content, setContent] = useInput('');
+
+  const submitFormHandler = (event) => {
+    event.preventDefault();
+    dispatch(asyncAddThread({ title, body: content }));
+    navigate('/');
+  };
 
   return (
     <Stack
@@ -37,7 +53,7 @@ function CreateNewThread() {
         spacing={16}
         width="100%"
         component="form"
-        // onSubmit={submitFormHandler}
+        onSubmit={submitFormHandler}
       >
         {/* TITLE INPUT */}
         <FormControl fullWidth>
@@ -63,7 +79,6 @@ function CreateNewThread() {
           </InputLabel>
 
           <OutlinedInput
-            autoFocus
             placeholder="Write your thread content here"
             type="text"
             name="content"
