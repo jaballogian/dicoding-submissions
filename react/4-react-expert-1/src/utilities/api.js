@@ -2,12 +2,14 @@
 const api = (() => {
   const BASE_URL = 'https://forum-api.dicoding.dev/v1';
 
+  const keyAccessToken = 'dicoding-submission-react-expert-accessToken';
+
   function putAccessToken(token) {
-    localStorage.setItem('accessToken', token);
+    localStorage.setItem(keyAccessToken, token);
   }
 
   function getAccessToken() {
-    return localStorage.getItem('accessToken');
+    return localStorage.getItem(keyAccessToken);
   }
 
   async function fetchWithAuth(url, options = {}) {
