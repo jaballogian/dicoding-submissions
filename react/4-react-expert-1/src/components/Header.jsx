@@ -1,5 +1,6 @@
 /* eslint linebreak-style: ["error", "windows"] */
 import React from 'react';
+import PropTypes from 'prop-types';
 
 // MUIS
 import AppBar from '@mui/material/AppBar';
@@ -15,10 +16,11 @@ import IconExitToApp from '@mui/icons-material/ExitToApp';
 // CONSTANTS
 import { white } from '../constants/colors';
 
-function Header() {
-  const user = { name: 'Dummy Name' };
-
-  const signOutUser = () => {};
+function Header(props) {
+  const {
+    authUser,
+    onSignOutUser,
+  } = props;
 
   return (
     <AppBar
@@ -51,23 +53,23 @@ function Header() {
         </Link>
 
         {/* NAME */}
-        {user?.name
+        {authUser?.name
         && (
         <Typography
           component="p"
           margin="0px 20px"
         >
-          {user?.name}
+          {authUser?.name}
         </Typography>
         )}
 
         {/* LOGOUT BUTTON */}
-        {user && (
+        {authUser && (
         <Tooltip
           title="Sign Out"
           placement="bottom"
         >
-          <IconButton onClick={signOutUser}>
+          <IconButton onClick={onSignOutUser}>
             <IconExitToApp sx={{ color: white }} />
           </IconButton>
         </Tooltip>
@@ -76,5 +78,21 @@ function Header() {
     </AppBar>
   );
 }
+
+const authUserShape = {
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  avatar: PropTypes.string.isRequired,
+  email: PropTypes.string.isRequired,
+};
+
+Header.defaultProps = {
+  authUser: {},
+};
+
+Header.propTypes = {
+  authUser: PropTypes.shape(authUserShape),
+  onSignOutUser: PropTypes.func.isRequired,
+};
 
 export default Header;
