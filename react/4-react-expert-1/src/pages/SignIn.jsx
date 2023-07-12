@@ -1,5 +1,6 @@
 /* eslint linebreak-style: ["error", "windows"] */
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 // MUIS
 import Button from '@mui/material/Button';
@@ -16,8 +17,14 @@ import Typography from '@mui/material/Typography';
 import IconVisibility from '@mui/icons-material/Visibility';
 import IconVisibilityOff from '@mui/icons-material/VisibilityOff';
 
+// REDUXS
+import { useDispatch } from 'react-redux';
+
 // HOOKS
 import useInput from '../hooks/useInput';
+
+// STATES
+import { asyncSetAuthUser } from '../states/authUser/action';
 
 function SignIn() {
   const [email, onEmailChange] = useInput('');
@@ -25,8 +32,13 @@ function SignIn() {
 
   const [isPasswordShown, setIsPasswordShown] = useState(false);
 
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const submitFormHandler = (event) => {
     event.preventDefault();
+    dispatch(asyncSetAuthUser({ email, password }));
+    navigate('/');
   };
 
   return (
