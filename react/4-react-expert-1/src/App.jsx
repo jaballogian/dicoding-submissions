@@ -1,11 +1,20 @@
-import React, { Suspense, lazy } from 'react';
+import React, { Suspense, lazy, useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
 // MUIS
 import Stack from '@mui/material/Stack';
 
+// REDUX
+import {
+  useDispatch,
+  useSelector,
+} from 'react-redux';
+
 // LAYOUTS
 import LayoutMain from './layouts/Main';
+
+// STATES
+import { asyncPreloadProcess } from './states/isPreload/action';
 
 // PAGES
 const CreateNewThread = lazy(() => import('./pages/CreateNewThread'));
@@ -52,13 +61,13 @@ const pageList = [
 ];
 
 function App() {
-  // const accessToken = { name: 'dummy name' };
-  const accessToken = null;
+  const { authUser } = useSelector((states) => states);
+  const dispatch = useDispatch();
 
   const getRouteComponent = (route) => {
     if (route.type === 'authentication') {
       return (
-        accessToken ? (
+        authUser ? (
           <Navigate
             replace
             to="/"
@@ -68,7 +77,7 @@ function App() {
     }
     if (route.type === 'private') {
       return (
-        accessToken ? route.element : (
+        authUser ? route.element : (
           <Navigate
             replace
             to="/sign-in"
@@ -80,6 +89,11 @@ function App() {
 
     return null;
   };
+
+  // PRELOAD THE APP
+  useEffect(() => {
+    dispatch(asyncPreloadProcess());
+  }, [dispatch]);
 
   return (
     <Suspense fallback={(
