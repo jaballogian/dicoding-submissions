@@ -32,14 +32,23 @@ import useInput from '../hooks/useInput';
 import convertDate from '../utilities/date';
 
 // STATES
+import { asyncAddComment } from '../states/comments/action';
 import { asyncReceiveThreadDetail } from '../states/threadDetail/action';
 
 function ThreadDetail() {
   const { threadId } = useParams();
-  const { threadDetail = null } = useSelector((states) => states);
+  const {
+    threadDetail,
+    comments,
+  } = useSelector((states) => states);
   const dispatch = useDispatch();
 
   const [inputComment, setInputComment] = useInput('');
+
+  const submitFormHandler = (event) => {
+    event.preventDefault();
+    dispatch(asyncAddComment({ id: threadId, content: inputComment }));
+  };
 
   useEffect(() => {
     dispatch(asyncReceiveThreadDetail(threadId));
@@ -79,7 +88,7 @@ function ThreadDetail() {
           spacing={16}
           width="100%"
           component="form"
-          // onSubmit={submitFormHandler}
+          onSubmit={submitFormHandler}
         >
           {/* COMMENT INPUT */}
           <FormControl fullWidth>
@@ -115,11 +124,11 @@ function ThreadDetail() {
           color="text.primary"
         >
           Comments (
-          {threadDetail?.comments?.length}
+          {comments?.length}
           )
         </Typography>
 
-        {threadDetail?.comments?.length > 0 ? (
+        {comments?.length > 0 ? (
           // COMMENTS
           <Stack
             marginTop={12}
@@ -130,7 +139,7 @@ function ThreadDetail() {
               />
             )}
           >
-            {threadDetail?.comments?.map((item) => (
+            {comments?.map((item) => (
               <CommentItem
                 key={item.id}
                 avatar={item.owner.avatar}
