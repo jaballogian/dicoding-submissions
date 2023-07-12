@@ -1,4 +1,7 @@
 /* eslint linebreak-style: ["error", "windows"] */
+// STATES
+import { receiveCommentsActionCreator } from '../comments/action';
+
 // UTILITIES
 import api from '../../utilities/api';
 
@@ -29,6 +32,7 @@ function asyncReceiveThreadDetail(threadId) {
     try {
       const threadDetail = await api.getThreadDetail(threadId);
       dispatch(receiveThreadDetailActionCreator(threadDetail));
+      dispatch(receiveCommentsActionCreator(threadDetail.comments));
     } catch (error) {
       alert(error.message);
     }

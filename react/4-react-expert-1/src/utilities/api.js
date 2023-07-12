@@ -181,9 +181,9 @@ const api = (() => {
       throw new Error(message);
     }
 
-    const { data: { thread } } = responseJson;
+    const { data: { comment } } = responseJson;
 
-    return thread;
+    return comment;
   }
 
   return {
