@@ -1,5 +1,5 @@
 /* eslint linebreak-style: ["error", "windows"] */
-import React from 'react';
+import React, { useEffect } from 'react';
 
 // MUIS
 import Fab from '@mui/material/Fab';
@@ -9,20 +9,31 @@ import Typography from '@mui/material/Typography';
 // MUI ICONS
 import IconAdd from '@mui/icons-material/Add';
 
+// REDUX
+import { useSelector, useDispatch } from 'react-redux';
+
 // COMPONENTS
 import ThreadItem from '../components/ThreadItem';
 
-// CONSTANTS
-import {
-  dummyThreadList,
-  dummyUserList,
-} from '../constants/mockAPI';
+// STATES
+import asyncPopulateUsersAndThreads from '../states/shared/action';
 
 function Home() {
-  const combinedThreadAndUserLists = dummyThreadList.map((thread) => ({
+  const {
+    threads = [],
+    users = [],
+  } = useSelector((states) => states);
+
+  const dispatch = useDispatch();
+
+  const combinedThreadAndUserLists = threads.map((thread) => ({
     ...thread,
-    user: dummyUserList.find((user) => thread.ownerId === user.id),
+    user: users.find((user) => thread.ownerId === user.id),
   }));
+
+  useEffect(() => {
+    dispatch(asyncPopulateUsersAndThreads());
+  }, [dispatch]);
 
   return (
     <Stack
