@@ -26,10 +26,10 @@ function unsetAuthUserActionCreator() {
 }
 
 // THUNK FUNCTION FOR LOGGING IN
-function asyncSetAuthUser({ name, password }) {
+function asyncSetAuthUser({ email, password }) {
   return async (dispatch) => {
     try {
-      const token = await api.loginUser({ name, password });
+      const token = await api.loginUser({ email, password });
       api.putAccessToken(token);
       const authUser = await api.getOwnProfile();
 
