@@ -62,14 +62,14 @@ function Home() {
         <Stack spacing={24}>
           {combinedThreadAndUserLists.map((thread) => (
             <ThreadItem
-              key={thread.id}
-              id={thread.id}
-              body={thread.body}
-              createdTime={thread.createdAt}
-              title={thread.title}
-              totalComments={thread.totalComments}
-              name={thread.user.name}
-              avatar={thread.user.avatar}
+              key={thread?.id}
+              id={thread?.id}
+              body={thread?.body}
+              createdTime={thread?.createdAt}
+              title={thread?.title}
+              totalComments={thread?.totalComments}
+              name={thread?.user?.name}
+              avatar={thread?.user?.avatar}
             />
           ))}
         </Stack>
