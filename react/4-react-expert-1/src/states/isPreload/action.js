@@ -1,4 +1,7 @@
 /* eslint linebreak-style: ["error", "windows"] */
+// REDUX
+import { hideLoading, showLoading } from 'react-redux-loading-bar';
+
 // STATES
 import { setAuthUserActionCreator } from '../authUser/action';
 
@@ -21,6 +24,8 @@ function setIsPreloadActionCreator(isPreload) {
 // THUNK FUNCTION TO CHECK THE AUTH USER STATE
 function asyncPreloadProcess() {
   return async (dispatch) => {
+    dispatch(showLoading());
+
     try {
       // preload process
       const authUser = await api.getOwnProfile();
@@ -32,6 +37,8 @@ function asyncPreloadProcess() {
       // end preload process
       dispatch(setIsPreloadActionCreator(false));
     }
+
+    dispatch(hideLoading());
   };
 }
 

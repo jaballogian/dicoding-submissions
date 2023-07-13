@@ -1,4 +1,7 @@
 /* eslint linebreak-style: ["error", "windows"] */
+// REDUX
+import { hideLoading, showLoading } from 'react-redux-loading-bar';
+
 // UTILITIES
 import api from '../../utilities/api';
 
@@ -9,6 +12,8 @@ import { receiveUsersActionCreator } from '../users/action';
 // THUNK FUNCTION FOR RECEIVING THE USERS AND THREADS
 function asyncPopulateUsersAndThreads() {
   return async (dispatch) => {
+    dispatch(showLoading());
+
     try {
       const users = await api.getAllUsers();
       const threads = await api.getAllThreads();
@@ -18,6 +23,8 @@ function asyncPopulateUsersAndThreads() {
     } catch (error) {
       alert(error.message);
     }
+
+    dispatch(hideLoading());
   };
 }
 

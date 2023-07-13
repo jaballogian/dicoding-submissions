@@ -1,4 +1,7 @@
 /* eslint linebreak-style: ["error", "windows"] */
+// REDUX
+import { hideLoading, showLoading } from 'react-redux-loading-bar';
+
 // STATES
 import { receiveCommentsActionCreator } from '../comments/action';
 
@@ -28,7 +31,9 @@ function clearThreadDetailActionCreator() {
 // THUNK FUNCTION FOR RECEIVING THREAD DETAIL
 function asyncReceiveThreadDetail(threadId) {
   return async (dispatch) => {
+    dispatch(showLoading());
     dispatch(clearThreadDetailActionCreator());
+
     try {
       const threadDetail = await api.getThreadDetail(threadId);
       dispatch(receiveThreadDetailActionCreator(threadDetail));
@@ -36,6 +41,8 @@ function asyncReceiveThreadDetail(threadId) {
     } catch (error) {
       alert(error.message);
     }
+
+    dispatch(hideLoading());
   };
 }
 

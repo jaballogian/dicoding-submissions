@@ -1,4 +1,7 @@
 /* eslint linebreak-style: ["error", "windows"] */
+// REDUX
+import { hideLoading, showLoading } from 'react-redux-loading-bar';
+
 // UTILITIES
 import api from '../../utilities/api';
 
@@ -17,12 +20,16 @@ function receiveUsersActionCreator(users) {
 
 // THUNK FUNCTION FOR REGISTERING THE USER
 function asyncRegisterUser({ name, email, password }) {
-  return async () => {
+  return async (dispatch) => {
+    dispatch(showLoading());
+
     try {
       await api.registerUser({ name, email, password });
     } catch (error) {
       alert(error.message);
     }
+
+    dispatch(hideLoading());
   };
 }
 
