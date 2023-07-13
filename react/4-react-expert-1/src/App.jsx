@@ -8,6 +8,9 @@ import {
   useSelector,
 } from 'react-redux';
 
+// COMPONENTS
+import Loading from './components/Loading';
+
 // LAYOUTS
 import LayoutMain from './layouts/Main';
 
@@ -102,6 +105,8 @@ function App() {
 
   return (
     <Suspense fallback={null}>
+      <Loading />
+
       {/* PAGES */}
       <Routes>
         {pageList.map((item) => (
