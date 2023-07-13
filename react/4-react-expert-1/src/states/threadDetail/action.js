@@ -39,6 +39,7 @@ function asyncReceiveThreadDetail(threadId) {
       dispatch(receiveThreadDetailActionCreator(threadDetail));
       dispatch(receiveCommentsActionCreator(threadDetail.comments));
     } catch (error) {
+      // eslint-disable-next-line no-alert
       alert(error.message);
     }
 

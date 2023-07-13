@@ -21,6 +21,7 @@ function asyncPopulateUsersAndThreads() {
       dispatch(receiveUsersActionCreator(users));
       dispatch(receiveThreadsActionCreator(threads));
     } catch (error) {
+      // eslint-disable-next-line no-alert
       alert(error.message);
     }
 

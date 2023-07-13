@@ -26,6 +26,7 @@ function asyncRegisterUser({ name, email, password }) {
     try {
       await api.registerUser({ name, email, password });
     } catch (error) {
+      // eslint-disable-next-line no-alert
       alert(error.message);
     }
 

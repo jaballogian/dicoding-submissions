@@ -37,6 +37,7 @@ function asyncAddThread({ title, body, category = '' }) {
       const thread = await api.createThread({ title, body, category });
       dispatch(addThreadActionCreator(thread));
     } catch (error) {
+      // eslint-disable-next-line no-alert
       alert(error.message);
     }
 

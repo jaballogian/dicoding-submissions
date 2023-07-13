@@ -37,6 +37,7 @@ function asyncAddComment({ id, content }) {
       const comment = await api.createThreadComment({ id, content });
       dispatch(addCommentActionCreator(comment));
     } catch (error) {
+      // eslint-disable-next-line no-alert
       alert(error.message);
     }
 
