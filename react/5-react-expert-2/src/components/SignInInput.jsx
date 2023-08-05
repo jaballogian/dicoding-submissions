@@ -31,7 +31,7 @@ function SignInInput(props) {
       spacing={16}
       width={600}
       component="form"
-      onSubmit={(event) => submitFormHandler({ event, email, password })}
+      onSubmit={() => submitFormHandler({ email, password })}
     >
       {/* EMAIL INPUT */}
       <FormControl fullWidth>

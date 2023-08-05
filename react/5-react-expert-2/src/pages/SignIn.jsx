@@ -20,8 +20,7 @@ function SignIn() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const submitFormHandler = ({ event, email, password }) => {
-    event.preventDefault();
+  const submitFormHandler = ({ email, password }) => {
     dispatch(asyncSetAuthUser({ email, password }));
     navigate('/');
   };
