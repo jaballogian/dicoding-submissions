@@ -95,4 +95,5 @@ SignInInput.defaultProps = {
 SignInInput.propTypes = {
   submitFormHandler: PropTypes.func.isRequired,
 };
+
 export default SignInInput;

@@ -2,9 +2,10 @@
  * @jest-environment jsdom
 */
 /* eslint linebreak-style: ["error", "windows"] */
+
 // TEST SCENARIOS
 
-// SIGN IN PAGE (COMPONENT)
+// SIGN IN INPUT COMPONENT
 
 // should handle email typing correctly
 // should handle password typing correctly

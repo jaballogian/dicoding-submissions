@@ -1,4 +1,5 @@
 /* eslint linebreak-style: ["error", "windows"] */
+
 // TEST SCENARIOS
 
 // usersReducer function
@@ -6,7 +7,10 @@
 // - should return the initial state when given by unknown action
 // - should return the users when given by RECEIVE_USERS action
 
+// TESTS
 import { describe, it, expect } from 'vitest';
+
+// STATES
 import usersReducer from './reducer';
 
 describe('usersReducer function', () => {

@@ -1,4 +1,5 @@
 /* eslint linebreak-style: ["error", "windows"] */
+
 // TEST SCENARIOS
 
 // threadsReducer function
@@ -7,7 +8,10 @@
 // - should return the threads when given by RECEIVE_THREADS action
 // - should return the threads with the new thread when given by ADD_THREAD action
 
+// TESTS
 import { describe, it, expect } from 'vitest';
+
+// STATES
 import threadsReducer from './reducer';
 
 describe('threadsReducer function', () => {
