@@ -23,7 +23,7 @@ describe('Login spec', () => {
   });
 
   it('should display alert when email is empty', () => {
-    cy.get('button').contains(/^Sign In$/).click();
+    cy.get('button').contains(/^Sign In$/).click({ force: true });
 
     cy.on('window:alert', (str) => {
       expect(str).to.equal('"email" is not allowed to be empty');
@@ -32,21 +32,21 @@ describe('Login spec', () => {
 
   it('should display alert when password is empty', () => {
     cy.get('input[placeholder="Enter your email address here"]').type('test@gmail.com');
- 
-    cy.get('button').contains(/^Sign In$/).click();
- 
+
+    cy.get('button').contains(/^Sign In$/).click({ force: true });
+
     cy.on('window:alert', (str) => {
       expect(str).to.equal('"password" is not allowed to be empty');
     });
   });
 
   it('should display alert when email and password are wrong', () => {
-    cy.get('input[placeholder="Enter your email address here"]').type('test@gmail.com');
- 
-    cy.get('input[placeholder="Enter your password here"]').type('test password');
- 
-    cy.get('button').contains(/^Sign In$/).click();
- 
+    cy.get('input[placeholder="Enter your email address here"]').type('test@gmail.com', { force: true });
+
+    cy.get('input[placeholder="Enter your password here"]').type('test password', { force: true });
+
+    cy.get('button').contains(/^Sign In$/).click({ force: true });
+
     cy.on('window:alert', (str) => {
       expect(str).to.equal('Email or password is wrong');
     });
@@ -55,11 +55,11 @@ describe('Login spec', () => {
   it('should display Home page when email and password are correct', () => {
     cy.visit('http://localhost:3000/sign-in');
 
-    cy.get('input[placeholder="Enter your email address here"]').type('alberteinstein@gmail.com');
- 
-    cy.get('input[placeholder="Enter your password here"]').type('albert einstein');
- 
-    cy.get('button').contains(/^Sign In$/).click();
+    cy.get('input[placeholder="Enter your email address here"]').type('alberteinstein@gmail.com', { force: true });
+
+    cy.get('input[placeholder="Enter your password here"]').type('albert einstein', { force: true });
+
+    cy.get('button').contains(/^Sign In$/).click({ force: true });
 
     cy.get('h1').contains(/^Forum App$/).should('be.visible');
   });

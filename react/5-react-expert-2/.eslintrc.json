@@ -2,11 +2,12 @@
     "env": {
         "browser": true,
         "es2021": true,
-        "cypress/global": true
+        "cypress/globals": true
     },
     "extends": [
         "plugin:react/recommended",
-        "airbnb"
+        "airbnb",
+        "plugin:cypress/recommended"
     ],
     "overrides": [
     ],
